@@ -1,0 +1,61 @@
+/*  navigation bar-1  */
+#navbar1 {
+  background-color: #ffffff;
+  height: 108px;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  position: sticky;
+  z-index: 1000;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.logo img{
+    width: 333px;
+    height: 85px;
+    margin: 11px 3px;
+}
+
+/*   search box  */
+#searchbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 50px;
+}
+
+#searchbar input {
+  width: 310px;
+  height: 36px;
+  padding: 5px 10px;
+  border: 1px solid #e1e2e3;
+  outline: none;
+  background-color: white;
+  font-size: 2.5vh;
+  letter-spacing: 0.5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+#searchbar button {
+  width: 54px;
+  height: 36px;
+  margin-left: -8px;
+  padding: 4px;
+  border: 0px solid;
+  background-color: #f7c04a;
+  font-family: "Fredoka One";
+  border-radius: 0px 7px 7px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#searchbar button:hover {
+  background-color: #efb844;
+  cursor: pointer;
+}
+
+#searchbar button:active {
+  background-color: rgb(119 158 201);
+  cursor: pointer;
+}
+

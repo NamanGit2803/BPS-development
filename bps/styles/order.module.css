@@ -1,0 +1,427 @@
+@media (min-width: 1100px) {
+  .orderSection {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .container {
+    width: 80%;
+    min-height: 60vh;
+  }
+
+  /*  heading   */
+  .heading {
+    height: 55px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .heading h1 {
+    font-size: 30px;
+    font-family: var(--font-heading);
+  }
+
+  /*  order placed message  */
+  .placedOrderMsg {
+    margin-bottom: 5px;
+    font-family: var(--second-font);
+    font-size: 18px;
+    color: #2e7d32;
+  }
+
+  .payStatus {
+    margin-bottom: 15px;
+    font-family: var(--second-font);
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .status{
+    font-weight: 700;
+  }
+
+  /*  order-deatil-container  */
+  .orderDetailsContainer {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 5px;
+    min-height: 50vh;
+    max-height: 60vh;
+    overflow: hidden scroll;
+    margin-bottom: 10px;
+  }
+
+  .orderDetailsContainer::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* order table head  */
+  .orderTableHead {
+    display: grid;
+    grid-template-columns: 2.7fr 1fr 1fr 1fr;
+    padding: 6px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    font-family: var(--third-font);
+    background-color: #e8f5e9;
+  }
+
+  .orderTableHead div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  /*  item-list-container  */
+  .itemListContainer {
+    display: grid;
+    grid-template-columns: 0.7fr 2fr 1fr 1fr 1fr;
+    margin: 6px 0px;
+    height: 13vh;
+    font-family: var(--second-font);
+    padding: 5px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  /*  item-img  */
+  .itemImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .itemImage img {
+    height: 12vh;
+    width: 6vw;
+  }
+
+  /*  name and weight  */
+  .itemName {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px 10px;
+  }
+
+  .name {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .weight {
+    font-size: 13px;
+    margin: 5px 0px;
+  }
+
+  /*  qty  */
+  .itemQty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--second-font);
+    font-size: 15px;
+  }
+
+  /*  item-price*qty  */
+  .itemTotal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--second-font);
+    font-size: 15px;
+  }
+
+  /*   total-amount  */
+  .totalAmount {
+    margin: 10px 0px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .total {
+    font-size: 24px;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .priceContainer {
+    font-size: 16px;
+    margin: 2px 0px;
+    padding: 8px 0px;
+    border-bottom: 2px solid black;
+    font-family: var(--second-font);
+  }
+
+  .price {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .subtotalContainer {
+    width: 15vw;
+  }
+
+  /* info conatiner  */
+  .infoContainer {
+    width: 25vw;
+    padding: 5px 5px;
+  }
+
+  .infoContainer h3 {
+    font-family: var(--font-heading);
+  }
+
+  .infoContainer span {
+    font-size: 14px;
+    font-family: var(--second-font);
+  }
+
+  /* email  */
+  .email {
+    margin: 5px 0px;
+  }
+
+  /* address  */
+  .addressContainer {
+    margin: 5px 0px;
+  }
+
+  /* payment mode  */
+  .payMode {
+    margin: 5px 0px;
+  }
+}
+
+
+
+
+
+
+/*******                       ******** 
+              for mobile  
+********                       *******/
+@media (min-width: 250px) and (max-width: 450px) {
+  .orderSection {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .container {
+    margin-top: 10px;
+  }
+
+  /*  heading   */
+  .heading {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .heading h1 {
+    font-size: 23px;
+    font-family: var(--font-heading);
+  }
+
+  /*  order placed message  */
+  .placedOrderMsg {
+    margin-bottom: 2px;
+    font-family: var(--second-font);
+    font-size: 15px;
+    color: #2e7d32;
+  }
+
+  .payStatus {
+    margin-bottom: 10px;
+    font-family: var(--second-font);
+    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .payStatus div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .status{
+    font-weight: 700;
+  }
+
+  /*  order-deatil-container  */
+  .orderDetailsContainer {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 5px;
+    min-height: 45vh;
+    max-height: 50vh;
+    overflow: hidden scroll;
+    margin-bottom: 10px;
+  }
+
+  .orderDetailsContainer::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* order table head  */
+  .orderTableHead {
+    display: grid;
+    grid-template-columns: 2.4fr 0.8fr 1fr 0.8fr;
+    padding: 4px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    font-family: var(--third-font);
+    background-color: #e8f5e9;
+  }
+
+  .orderTableHead div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  /*  item-list-container  */
+  .itemListContainer {
+    display: grid;
+    grid-template-columns: 0.7fr 1.7fr 0.8fr 1fr 0.8fr;
+    margin: 4px 0px;
+    height: 11vh;
+    font-family: var(--second-font);
+    padding: 5px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  /*  item-img  */
+  .itemImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .itemImage img {
+    height: 10vh;
+    width: 12vw;
+  }
+
+  /*  name and weight  */
+  .itemName {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px 7px;
+  }
+
+  .name {
+    font-size: smaller;
+    font-weight: 700;
+  }
+
+  .weight {
+    font-size: small;
+    margin: 4px 0px;
+  }
+
+  /*  qty  */
+  .itemQty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--second-font);
+    font-size: smaller;
+  }
+
+  /*  item-price*qty  */
+  .itemTotal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--second-font);
+    font-size: smaller;
+  }
+
+  /*   total-amount  */
+  .totalAmount {
+    margin: 10px 0px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .total {
+    font-size: 21px;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .priceContainer {
+    font-size: 15px;
+    margin: 2px 0px;
+    padding: 8px 0px;
+    border-bottom: 2px solid black;
+    font-family: var(--second-font);
+  }
+
+  .price {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .subtotalContainer {
+    width: 45vw;
+    padding: 5px;
+  }
+
+  /* info conatiner  */
+  .infoContainer {
+    width: 40vw;
+    padding: 5px 5px;
+  }
+
+  .infoContainer h3 {
+    font-family: var(--font-heading);
+    font-size: large;
+  }
+
+  .infoContainer span {
+    font-size: 14px;
+    font-family: var(--second-font);
+  }
+
+  /* email  */
+  .email {
+    margin: 4px 0px;
+  }
+
+  /* address  */
+  .addressContainer {
+    margin: 4px 0px;
+  }
+
+  /* payment mode  */
+  .payMode {
+    margin: 4px 0px;
+  }
+}

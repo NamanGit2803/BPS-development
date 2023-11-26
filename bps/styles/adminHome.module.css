@@ -1,0 +1,71 @@
+.section {
+  min-height: 60vh;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+}
+
+/* constiner  */
+.container1 {
+  display: grid;
+  grid-template-areas:
+    "section1 section1 section1 section1"
+    "section2 section2 section3 section3"
+    "section4 section4 section5 section5";
+  gap: 10px;
+  padding: 30px;
+  background-color: #e8f5e9;
+  height: 85vh;
+  overflow-y: scroll;
+}
+
+.container1::-webkit-scrollbar{
+  display: none;
+}
+
+/* graph  */
+.section1 {
+  grid-area: section1;
+  font-family: var(--font-heading);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.section1 h1 {
+  margin-bottom: 10px;
+  font-size: 25px;
+  display: flex;
+  width: 1000px;
+}
+
+.graph {
+  padding-top: 0px;
+  width: 1000px;
+  height: fit-content;
+}
+
+.myChart {
+  height: 430px;
+}
+
+.section2 {
+  grid-area: section2;
+}
+
+.section3 {
+  grid-area: section3;
+}
+
+.section4 {
+  grid-area: section4;
+}
+
+.section5 {
+  grid-area: section5;
+}

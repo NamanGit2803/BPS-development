@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto+Serif&display=swap");
+
+/*
+font-family: 'Roboto Serif', serif; */
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  /* overflow-x: hidden; */
+  height: 100%;
+  width: 100%;
+}
+
+:root {
+  --font-heading: "Quicksand", sans-serif;
+  --second-font: "Lato", sans-serif;
+  --third-font: "Roboto Serif", serif;
+}

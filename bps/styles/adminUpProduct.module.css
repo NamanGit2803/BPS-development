@@ -1,0 +1,122 @@
+/* search container  */
+.search {
+  margin: 8px 0px 25px 0px;
+  display: flex;
+  height: 35px;
+  justify-content: center;
+}
+
+/* search box  */
+.inpSearch {
+  width: 90%;
+  outline: none;
+  border: 1px solid #43a047;
+  padding: 10px;
+  font-size: 18px;
+  font-family: var(--second-font);
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+}
+
+/* button  */
+.search button {
+  width: 80px;
+  background-color: #43a047;
+  border: 0;
+  color: white;
+  font-family: var(--third-font);
+  font-size: 16px;
+  border-radius: 0px 6px 6px 0px;
+}
+
+.search button:hover {
+  cursor: pointer;
+}
+
+.search button:active {
+  background-color: #43a047ed;
+}
+
+/* update  */
+.update {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #2e7d32;
+}
+
+.update:hover {
+  cursor: pointer;
+}
+
+/* image file  */
+.imgContainer {
+  display: flex;
+}
+
+.img {
+  border: 1px solid;
+  width: 115px;
+  height: 115px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.inpImageFile {
+  font-family: var(--second-font);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.inpImageFile input {
+  width: 300px;
+}
+
+.inpImageFile input[type="file"]::file-selector-button {
+  margin-right: 20px;
+  margin-top: 10px;
+  border: none;
+  background: #43a047;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  font-family: var(--second-font);
+}
+
+.inpImageFile input[type="file"]::file-selector-button:hover {
+  background: #43a047ed;
+}
+
+/* button  */
+.button{
+  display: flex;
+}
+
+.cancelButton{
+  display: flex;
+  border: 1px solid #43a047;
+  align-items: center;
+  margin-top: 10px;
+  height: 42px;
+  width: 160px;
+  border-radius: 10px;
+  color: #43a047;
+  background-color: #eef5f3;
+  justify-content: center;
+  font-family: var(--second-font);
+  font-size: 15px;
+  margin-left: 15px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.cancelButton:hover{
+  cursor: pointer;
+}
+
+.cancelButton:active{
+  background-color: #fff;
+}
