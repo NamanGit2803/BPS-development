@@ -23,4 +23,6 @@ body {
   --font-heading: "Quicksand", sans-serif;
   --second-font: "Lato", sans-serif;
   --third-font: "Roboto Serif", serif;
+  --swiper-navigation-size: 40px;
 }
+

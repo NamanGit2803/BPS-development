@@ -5,6 +5,8 @@ import mongoose from "mongoose";
 import Product from "@/models/Product"
 import Error from 'next/error'
 import { useEffect } from 'react';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 
 const Post = ({ addToCart, product, error }) => {
 
@@ -13,11 +15,13 @@ const Post = ({ addToCart, product, error }) => {
 
   useEffect(() => {
 
+
   }, [])
 
   if (error == 404) {
     return <Error statusCode={404} />
   }
+
 
 
   return (
@@ -26,7 +30,21 @@ const Post = ({ addToCart, product, error }) => {
         {/* image-section  */}
         <div className={styles.productImgSection}>
           {/* image */}
-          <div className={styles.productImg}><img src={product.img} alt='img' height={100} width={100} /></div>
+          <div className={styles.productImg}>
+
+            {/* slider  */}
+            <Carousel>
+              <div>
+                <img src={product.img} alt='img' height={10} width={10} />
+              </div>
+              <div>
+                <img src={product.img} alt='img' height={10} width={10} />
+              </div>
+              <div>
+                <img src={product.img} alt='img' height={10} width={10} />
+              </div>
+            </Carousel>
+          </div>
         </div>
 
         {/* product-detail-section  */}
@@ -39,11 +57,13 @@ const Post = ({ addToCart, product, error }) => {
               <div className={styles.priceAndSize}>
                 {/* item-price  */}
                 <div className={styles.productInfo}>
-                  Price : ₹{product.price}
+                  <div>Price : ₹{product.price}</div>
+                  {product.size2 && <div>Price2 : ₹{product.price2}</div>}
                 </div>
                 {/* item-size  */}
                 <div className={styles.productInfo}>
-                  Size : {product.size}
+                  <div>Size : {product.size}</div>
+                  {product.size2 && <div>Size2 : {product.size2}</div>}
                 </div>
               </div>
               {/* button for mobile  */}
@@ -63,10 +83,16 @@ const Post = ({ addToCart, product, error }) => {
 
             {/* add-to-cart button for laptop  */}
             <div className={styles.addtoCartBtn}>
+              {/* for single size  */}
               <button onClick={(e) => {
                 e.preventDefault()
                 addToCart(product.id, 1, product.title, product.price, product.size, product.img)
-              }}>ADD</button>
+              }}>ADD {product.size2 && product.size}</button>
+              {/* for multiple size  */}
+              {product.size2 && <button onClick={(e) => {
+                e.preventDefault()
+                addToCart(product.id, 1, product.title, 0, 0, product.img, product.price2, product.size2, product.id2)
+              }}>ADD {product.size2}</button>}
             </div>
           </div>
         </div>

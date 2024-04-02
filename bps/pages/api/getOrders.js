@@ -1,11 +1,14 @@
 import Order from "@/models/Order"
 import connectDb from "@/middleware/mongoose"
-import jsonwebtoken from "jsonwebtoken"
 
 const handler = async (req, res) => {
 
-    if (req.body.pending) {
-        let orders = await Order.find({ status: { $regex: req.body.pending, $options: "i" } })
+    if (req.body.delivered) {
+        let orders = await Order.find({ status: { $regex: req.body.delivered, $options: "i" } })
+        res.status(200).json({ success: true, orders })
+    }
+    else if(req.body.current){
+        let orders = await Order.find({status: 'Initiated'})
         res.status(200).json({ success: true, orders })
     }
     else if (req.body.Id) {
@@ -17,7 +20,15 @@ const handler = async (req, res) => {
         res.status(200).json({ success: true, orders })
     }
     else if (req.body.unshipped) {
-        let orders = await Order.find({ deliveryStatus: { $regex: req.body.unshipped, $options: "i" }})
+        let orders = await Order.find({ status: { $regex: req.body.unshipped, $options: "i" }})
+        res.status(200).json({ success: true, orders })
+    }
+    else if (req.body.orderId){
+        let orders = await Order.findOneAndUpdate({orderId: req.body.orderId},{status: 'Processing'})
+        res.status(200).json({ success: true, orders })
+    }
+    else if (req.body.orderId2){
+        let orders = await Order.findOneAndUpdate({orderId: req.body.orderId2},{status: 'Shipped'})
         res.status(200).json({ success: true, orders })
     }
     else {

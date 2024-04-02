@@ -14,6 +14,8 @@ const Navbar = ({ user, logout, cart, addToCart, removeFromCart, subTotal, clear
     const [scroll, setScroll] = useState(false)
     const [search, setSearch] = useState('')
     const [suggestion, setSuggestion] = useState([])
+    const [suggestion1, setSuggestion1] = useState('')
+
 
     // for bottom nav 
     const [img, setImg] = useState('/home.png')
@@ -29,24 +31,25 @@ const Navbar = ({ user, logout, cart, addToCart, removeFromCart, subTotal, clear
     // cart close function 
     const closeCart = () => {
         sideCart.current.style.visibility = "hidden";
-        setImg3('/cartFilled.png')
-
+        setImg3('/whitecart.png')
     }
+
     // cart open function 
     const openCart = (e) => {
         e.preventDefault()
         sideCart.current.style.visibility = "visible";
         sideCart.current.style.display = "flex";
-
-        setImg3('/whiteCart.png')
+        setImg3('/cartfilled.png')
     }
 
     globalThis.onscroll = () => {
-        if (nav2.current.getBoundingClientRect().y == 0) {
-            setScroll(true)
-        }
-        else {
-            setScroll(false)
+        if (nav2.current != null) {
+            if (nav2.current.getBoundingClientRect().y == 0) {
+                setScroll(true)
+            }
+            else {
+                setScroll(false)
+            }
         }
     }
 
@@ -123,6 +126,8 @@ const Navbar = ({ user, logout, cart, addToCart, removeFromCart, subTotal, clear
             setImg4('/user2.png')
             setImg2('/order.png')
         }
+        suggBox.current.style.visibility = 'hidden'
+
     }, [router.query])
 
     // change image 
@@ -156,11 +161,12 @@ const Navbar = ({ user, logout, cart, addToCart, removeFromCart, subTotal, clear
 
     // on search 
     const handleChange = async (e) => {
+        e.preventDefault()
         if (e.target.name == 'search') {
             setSearch(e.target.value)
 
             // fetch api 
-            let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getAllProducts`, {
+            let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/searchProduct`, {
                 method: "POST", // or 'PUT'
                 headers: {
                     "Content-Type": "application/json",
@@ -169,15 +175,50 @@ const Navbar = ({ user, logout, cart, addToCart, removeFromCart, subTotal, clear
             });
 
             let res = await a.json()
-            setSuggestion(res.products)
+            setSuggestion(res.products ? res.products : [])
+
+            if (res.category2) {
+                setSuggestion1(res.category2)
+            }
+            else {
+                setSuggestion1('')
+            }
+            localStorage.setItem('search', JSON.stringify(suggestion.map((item) => { return item.id })))
         }
         if (searchBar.current.value.length > 1) {
             suggBox.current.style.visibility = 'visible'
         }
         if (searchBar.current.value.length <= 1) {
-            suggBox.current.style.visibility = 'hidden'            
+            suggBox.current.style.visibility = 'hidden'
         }
     }
+
+    // handle search 
+    const handleSearch = async (e) => {
+        e.preventDefault()
+        // fetch api 
+        let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/searchProduct`, {
+            method: "POST", // or 'PUT'
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ search2: searchBar.current.value })
+        });
+
+        let res = await a.json()
+        if (res.products != null) {
+            setSuggestion(res.products ? res.products : [])
+            localStorage.setItem('search', JSON.stringify(suggestion.map((item) => { return item.id })))
+        } else {
+            setSuggestion([])
+            localStorage.setItem('search', '[]')
+            return
+        }
+
+
+        router.push(`/Products/${searchBar.current.value}`)
+    }
+
 
     // set search field 
     const fillSearch = (e) => {
@@ -196,16 +237,22 @@ const Navbar = ({ user, logout, cart, addToCart, removeFromCart, subTotal, clear
 
                 {/* search box  */}
                 <div className={styles.searchContainer}>
-                    <div id={styles.searchbar}>
+                    <form id={styles.searchbar}>
                         <input ref={searchBar} type="text" name="search" onChange={handleChange} id={styles.search1} value={search} placeholder="Search..." spellCheck="false" autoComplete='off' />
-                        <button type="button"><Image className={styles.searchIcon} src="/searchicon.png" alt='' width={25} height={25}></Image></button>
-                    </div>
-                    {/* suggestion  */}
-                    <div ref={suggBox} className={styles.suggContainer}>
-                        {suggestion.map((sugg, i) => {
-                            return i < 7 && <div onClick={fillSearch} className={styles.sugg}><Link href={{pathname: `/Products/${sugg.title}`, query: suggestion}}>{sugg.title}</Link></div>
-                        })}
-                    </div>
+                        <button onClick={handleSearch} type='submit'><Image className={styles.searchIcon} src="/searchicon.png" alt='img' width={25} height={25}></Image></button>
+
+
+                        <div ref={suggBox} className={styles.suggContainer}>
+                            {/* when category exist  */}
+                            {suggestion1 != '' && <div onClick={fillSearch} className={styles.sugg}><Link href={{ pathname: `/Products/${suggestion1}`, query: { srh: searchBar.current.value } }}>{suggestion1}</Link></div>}
+
+                            {suggestion.map((sugg, i) => {
+                                return i < 8 && <>
+                                    <div onClick={fillSearch} className={styles.sugg}><Link href={{ pathname: `/Products/${sugg.title}`, query: { srh: searchBar.current.value } }}>{sugg.title}</Link></div>
+                                </>
+                            })}
+                        </div>
+                    </form>
                 </div>
 
                 {/* <!-- login panel --> */}
@@ -223,11 +270,6 @@ const Navbar = ({ user, logout, cart, addToCart, removeFromCart, subTotal, clear
                             <div className={styles.dropdownItem} onClick={logout}>Logout</div>
                         </div>
                     </>}
-                </div>
-
-                {/* wishlist */}
-                <div className={styles.wishlist}>
-                    <Link href={''}><Image src={'/wishlist-icon.png'} width={35} height={35} alt='' /></Link>
                 </div>
 
                 {/* <!-- Cart --> */}
@@ -252,7 +294,7 @@ const Navbar = ({ user, logout, cart, addToCart, removeFromCart, subTotal, clear
                             <button onClick={clearCart}>Clear</button>
                         </div>}
 
-                        {/* javascript */}
+                        {/* when cart empty */}
                         {Object.keys(cart).length == 0 && <div className={styles.emptyCart}><Image src={'/empty-cart.png'} width={100} height={100} alt='Empty-cart' />
                             <div className={styles.firstPara}>Your cart is Empty!</div>
                             <div className={styles.secondPara}>Your favourite items are just a click away</div>
@@ -264,7 +306,7 @@ const Navbar = ({ user, logout, cart, addToCart, removeFromCart, subTotal, clear
                                 <div key={k} className={styles.cartContainer}>
                                     <div className={styles.cartItems}>
                                         <div className={styles.cartItemsImg}>
-                                            <img src={cart[k].img} alt='' height={70} width={70} />
+                                            <img src={cart[k].img} alt='' height={60} width={60} />
                                         </div>
                                         <div className={styles.cartItemsAbout}>
                                             <div className={styles.cartItemsDetail}>
@@ -283,11 +325,11 @@ const Navbar = ({ user, logout, cart, addToCart, removeFromCart, subTotal, clear
                                             {/* qty-button  */}
                                             <div className={styles.cartItemsQty}>
                                                 <div className={styles.cartItemsQtybtn}>
-                                                    <div onClick={() => { removeFromCart(k, 1) }}><Image src={'/minus2.png'} width={20} height={20} alt='' /></div>
+                                                    <div onClick={() => { removeFromCart(k, 1) }}><Image src={'/minus2.png'} width={20} height={20} alt='img' /></div>
 
                                                     <span>{cart[k].qty}</span>
 
-                                                    <div onClick={() => { addToCart(k, 1, '2 Minute Maggi noodle noodle noodle', 15, 70) }}><Image src={'/plus2.png'} width={20} height={20} alt='' /></div>
+                                                    <div onClick={() => { addToCart(k, 1, cart[k].title, cart[k].price, cart[k].size, cart[k].img) }}><Image src={'/plus2.png'} width={20} height={20} alt='img' /></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -335,7 +377,7 @@ const Navbar = ({ user, logout, cart, addToCart, removeFromCart, subTotal, clear
                     <li className={`${styles.navitem} ${styles.navHome}`}><Link className={styles.navLink} href={'/'}><button disabled={active1}>Home</button></Link></li>
                     <li className={styles.navitem}><Link className={styles.navLink} href={'/aboutUs'}><button disabled={active2}>About Us</button></Link></li>
                     <li className={styles.navitem}><Link className={styles.navLink} href={'/orders'}><button disabled={active3}>My Order</button></Link></li>
-                    <li className={styles.navitem}><Link className={styles.navLink} href={''}><button disabled={active4}>Contact Us</button></Link></li>
+                    <li className={styles.navitem}><Link className={styles.navLink} href={'/contactUs'}><button disabled={active4}>Contact Us</button></Link></li>
 
 
                     {/* nav 2 cart & user & like  */}
@@ -373,18 +415,18 @@ const Navbar = ({ user, logout, cart, addToCart, removeFromCart, subTotal, clear
             {/* mobile bottom navigation bar  */}
             <nav className={styles.mobileBottomNav}>
                 {/* home */}
-                <div onClick={changeImage} className={styles.home}><Link href={'/'}><Image src={img} alt='img1' width={28} height={28} /><span>Home</span></Link></div>
+                <div onClick={changeImage} className={styles.home}><Link href={'/'}><Image src={img} alt='img1' width={10} height={10} /><span>Home</span></Link></div>
                 {/* orders  */}
-                <div onClick={changeImage} className={styles.order}><Link href={'/orders'}><Image src={img2} alt='img2' width={28} height={28} /><span>Orders</span></Link></div>
+                <div onClick={changeImage} className={styles.order}><Link href={'/orders'}><Image src={img2} alt='img2' width={10} height={10} /><span>Orders</span></Link></div>
                 {/* cart  */}
-                <div onClick={openCart} className={styles.mobileCart}><Image src={img3} alt='img3' width={28} height={28} /><span>Cart</span></div>
+                <div onClick={openCart} className={styles.mobileCart}><Image src={img3} alt='img3' width={10} height={10} /><span>Cart</span></div>
                 {/* user  */}
                 <div onClick={changeImage} className={styles.user}>
                     {/* when user login  */}
-                    {user.value && <Link href={'/myAccount'}><Image src={img4} alt='img4' width={28} height={28} /><span>My Account</span></Link>}
+                    {user.value && <Link href={'/myAccount'}><Image src={img4} alt='img4' width={10} height={10} /><span>Account</span></Link>}
 
                     {/* when user logout  */}
-                    {!user.value && <Link href={'/login'}><Image src={img4} alt='img4' width={28} height={28} /><span>Signin</span></Link>}
+                    {!user.value && <Link href={'/login'}><Image src={img4} alt='img4' width={10} height={10} /><span>Signin</span></Link>}
                 </div>
             </nav>
         </>

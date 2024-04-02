@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import AdminSideNav from '@/components/AdminSideNav'
+import { ThreeDots } from 'react-loader-spinner'
 
 
 const Add = () => {
@@ -18,9 +19,13 @@ const Add = () => {
   const [cat2, setCat2] = useState([])
   const [topCategory, setTopCat] = useState('no')
   const [size, setSize] = useState('')
+  const [size2, setSize2] = useState('')
   const [availableQty, setAvailableQty] = useState('')
   const [price, setPrice] = useState('')
+  const [price2, setPrice2] = useState('')
   const [desc, setDesc] = useState('')
+  const [url, setUrl] = useState('');
+  const [loader, setLoader] = useState(false)
 
   const categoryies2 = [['Biscuit', 'Noodle', 'Sauce', 'Bhujia & Mixture', 'Rusk'], ['Dryfruits'], ['Tea', 'Coffee'], ['Dal', 'Rice']];
 
@@ -53,6 +58,8 @@ const Add = () => {
     else {
       router.push('/')
     }
+
+    setUrl('')
   }, [router.query])
 
 
@@ -67,17 +74,23 @@ const Add = () => {
     else if (e.target.name == 'size') {
       setSize(e.target.value)
     }
+    else if (e.target.name == 'size2') {
+      setSize2(e.target.value)
+    }
     else if (e.target.name == 'availableOty') {
       setAvailableQty(e.target.value)
     }
     else if (e.target.name == 'price') {
       setPrice(e.target.value)
     }
+    else if (e.target.name == 'price2') {
+      setPrice2(e.target.value)
+    }
     else if (e.target.name == 'desc') {
       setDesc(e.target.value)
     }
     else if (e.target.name == 'image') {
-      setImage(e.target.value)
+      setImage(e.target.files[0])
     }
   }
 
@@ -174,21 +187,8 @@ const Add = () => {
       });
       return
     }
-    else if (img == '') {
-      toast.info('Please Enter Image', {
-        position: "top-left",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      return
-    }
-    else if (img == '') {
-      toast.info('Please Enter Image', {
+    else if (url == '') {
+      toast.info('Please Upload Image', {
         position: "top-left",
         autoClose: 2000,
         hideProgressBar: true,
@@ -278,9 +278,22 @@ const Add = () => {
       });
       return
     }
+    else if (size2 != '' && price2 == '') {
+      toast.info('Please Enter Price2', {
+        position: "top-left",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return
+    }
 
     // fetch api 
-    let data = { title, slug, img, category1, category2, topCategory, size, availableQty, price, desc }
+    let data = { title, slug, url, category1, category2, topCategory, size, size2, availableQty, price, price2, desc }
     let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/addproduct`, {
       method: "POST", // or 'PUT'
       headers: {
@@ -290,7 +303,7 @@ const Add = () => {
     });
 
     let res = await a.json()
-    
+
     if (res.success == true) {
       toast.success('Product add successfully', {
         position: "top-left",
@@ -321,7 +334,7 @@ const Add = () => {
         });
         setTimeout(() => {
           window.location.reload()
-        }, 2500)
+        }, 2000)
       }
       else {
         toast.error('Product did not add successfully', {
@@ -336,9 +349,53 @@ const Add = () => {
         });
         setTimeout(() => {
           window.location.reload()
-        }, 2500);
+        }, 2000);
       }
     }
+  }
+
+
+  // upload image on cloud 
+  const uploadImage = (e) => {
+    e.preventDefault()
+    setLoader(true)
+    const data = new FormData()
+
+    data.append("file", img)
+    data.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET_NAME)
+    data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME)
+
+    // fetch 
+    fetch(`https://api.Cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
+      method: "post",
+      body: data
+    }).then(resp => resp.json()).then(data => {
+      setUrl(data.url)
+      setLoader(false)
+      toast.success('Image upload successfully', {
+        position: "top-left",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }).catch(err => {console.log(err)
+    setLoader(false)
+    toast.error('Image did not upload successfully!', {
+      position: "top-left",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  })
+
   }
 
 
@@ -372,6 +429,23 @@ const Add = () => {
             <div className={styles.inpImageFile}>
               <label htmlFor="image">Image</label>
               <input onChange={handleChange} type="file" id="image" name="image" accept="image/png, image/jpeg, image/jpg" />
+              {/* upload image  */}
+              <div className={styles.imgFiles}>
+                <button onClick={uploadImage} className={styles.uploadButton}>Upload</button>
+                {/* loader */}
+                {loader == true && <ThreeDots
+                  visible={true}
+                  height="40"
+                  width="40"
+                  color="#4fa94d"
+                  radius="9"
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                />}
+                {/* image  */}
+                {url != '' && <img src="/check.png" alt="img" width={25} height={25}/>}
+              </div>
             </div>
 
             {/* category-1 */}
@@ -396,8 +470,8 @@ const Add = () => {
             {/* category-2 */}
             <div className={styles.inpDiv}>
               <label htmlFor="category2">Choose Category 2:</label>
-              <select id='category2' onChange={cat2Select} name='category2' className={styles.category}>
-                <option hidden selected>Category-2</option>
+              <select id='category2' onChange={cat2Select} name='category2' defaultValue={'Category-2'} className={styles.category}>
+                <option hidden>Category-2</option>
                 {cat2.map((cat, i) => {
                   return <option key={i} value={cat}>{cat}</option>
                 })}
@@ -420,20 +494,30 @@ const Add = () => {
 
             {/* size */}
             <div className={styles.inpDiv}>
-              <label htmlFor="mobile">Size</label>
+              {/* size1  */}
+              <label htmlFor="size">Size1</label>
               <input onChange={handleChange} value={size} type="text" name='size' className={styles.userInput} required />
+
+              {/* size2  */}
+              <label htmlFor="size2">Size2</label>
+              <input onChange={handleChange} value={size2} type="text" name='size2' className={styles.userInput} />
             </div>
 
             {/* available-qty */}
             <div className={styles.inpDiv}>
-              <label htmlFor="mobile">Available Quantitity</label>
+              <label htmlFor="availableQty">Available Quantitity</label>
               <input onChange={handleChange} value={availableQty} type="number" name='availableOty' className={styles.userInput} required />
             </div>
 
             {/* price */}
             <div className={styles.inpDiv}>
-              <label htmlFor="mobile">Price</label>
-              <input onChange={handleChange} value={price} type="number" name='price' className={styles.userInput} required />
+              {/* price1  */}
+              <label htmlFor="price">Price1</label>
+              <input onChange={handleChange} value={price} type="text" name='price' className={styles.userInput} required />
+
+              {/* price2  */}
+              <label htmlFor="price2">Price2</label>
+              <input onChange={handleChange} value={price2} type="text" name='price2' className={styles.userInput} />
             </div>
 
             {/* description  */}

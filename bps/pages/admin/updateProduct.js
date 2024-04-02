@@ -6,6 +6,7 @@ import styles from '@/styles/adminAddProduct.module.css'
 import styles2 from '@/styles/adminUpProduct.module.css'
 import Image from 'next/image'
 import AdminSideNav from '@/components/AdminSideNav'
+import { ThreeDots } from 'react-loader-spinner'
 
 
 const UpdateProduct = () => {
@@ -19,13 +20,20 @@ const UpdateProduct = () => {
     const [cat2, setCat2] = useState([])
     const [topCategory, setTopCat] = useState('no')
     const [size, setSize] = useState('')
+    const [size2, setSize2] = useState('')
     const [availableQty, setAvailableQty] = useState('')
     const [price, setPrice] = useState('')
+    const [price2, setPrice2] = useState('')
     const [desc, setDesc] = useState('')
     const [prodId, setProdId] = useState('')
+    const [categ, setCateg] = useState(true)
+    const [inpCat, setInpCat] = useState('')
     const [categ2, setCateg2] = useState(true)
     const [inpCat2, setInpCat2] = useState('')
-    const [pic, setPic] = useState('')
+    const [pic, setPic] = useState(false)
+    const [pic2, setPic2] = useState('')
+    const [url, setUrl] = useState('');
+    const [loader, setLoader] = useState(false)
 
     const topCat1 = useRef(0)
     const topCat2 = useRef(0)
@@ -77,11 +85,17 @@ const UpdateProduct = () => {
         else if (e.target.name == 'size') {
             setSize(e.target.value)
         }
+        else if (e.target.name == 'size2') {
+            setSize2(e.target.value)
+        }
         else if (e.target.name == 'availableOty') {
             setAvailableQty(e.target.value)
         }
         else if (e.target.name == 'price') {
             setPrice(e.target.value)
+        }
+        else if (e.target.name == 'price2') {
+            setPrice2(e.target.value)
         }
         else if (e.target.name == 'desc') {
             setDesc(e.target.value)
@@ -90,7 +104,7 @@ const UpdateProduct = () => {
             setProdId(e.target.value)
         }
         else if (e.target.name == 'image') {
-            setImage(e.target.value)
+            setImage(e.target.files[0])
         }
     }
 
@@ -187,21 +201,8 @@ const UpdateProduct = () => {
             });
             return
         }
-        else if (img == '') {
-            toast.info('Please Enter Image', {
-                position: "top-left",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-            return
-        }
-        else if (img == '') {
-            toast.info('Please Enter Image', {
+        else if (prodId == '') {
+            toast.info('Please search product for update!', {
                 position: "top-left",
                 autoClose: 2000,
                 hideProgressBar: true,
@@ -291,9 +292,22 @@ const UpdateProduct = () => {
             });
             return
         }
+        else if (size2 != '' && price2 == '') {
+            toast.info('Please Enter Price2', {
+                position: "top-left",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            return
+        }
 
         // fetch api 
-        let data = { title, slug, img, category1, category2, topCategory, size, availableQty, price, desc }
+        let data = { title, slug, url, category1, category2, topCategory, size, size2, availableQty, price, price2, desc }
         let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updateProduct`, {
             method: "POST", // or 'PUT'
             headers: {
@@ -303,8 +317,23 @@ const UpdateProduct = () => {
         });
 
         let res = await a.json()
-        if (res.success) {
+        if (res.success == true) {
             toast.success('Product Update Successfully', {
+                position: "top-left",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            setTimeout(() => {
+                window.location.reload()
+            }, 2000);
+        }
+        else if(res.success == false){
+            toast.error('Product not found!', {
                 position: "top-left",
                 autoClose: 2000,
                 hideProgressBar: true,
@@ -353,18 +382,17 @@ const UpdateProduct = () => {
             setTitle(res.products.title)
             setSlug(res.products.slug)
             setSize(res.products.size)
+            setSize2(res.products.size2)
             setCategory1(res.products.category1)
             setCategory2(res.products.category2)
             setAvailableQty(res.products.availableQty)
             setTopCat(res.products.topCategory)
             setPrice(res.products.price)
+            setPrice2(res.products.price2)
             setDesc(res.products.desc)
-            setImage(res.products.img)
-
-            // image 
-            setPic('/Maggi.jpg')
+            setPic2(res.products.img)
             // set categories 
-            cat1.current.value = res.products.category1
+            setInpCat(res.products.category1)
             setInpCat2(res.products.category2)
 
             // set radio button 
@@ -393,10 +421,75 @@ const UpdateProduct = () => {
         setCateg2(false)
     }
 
+    const changeCat = () => {
+        setCateg(false)
+    }
+
     // cancel 
     const cancel = (e) => {
         e.preventDefault()
-        window.location.reload()
+
+        toast.info('Product did not Update Successfully', {
+            position: "top-left",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+        setTimeout(() => {
+            window.location.reload()
+        }, 2000);
+    }
+
+    // upload image on cloud 
+    const uploadImage = (e) => {
+        e.preventDefault()
+        setLoader(true)
+        setPic(false)
+        const data = new FormData()
+
+        data.append("file", img)
+        data.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET_NAME)
+        data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME)
+
+        // fetch 
+        fetch(`https://api.Cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
+            method: "post",
+            body: data
+        }).then(resp => resp.json()).then(data => {
+            setUrl(data.url)
+            setLoader(false)
+            setPic(true)
+            setPic2(data.url)
+            toast.success('Image upload successfully', {
+                position: "top-left",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }).catch(err => {
+            console.log(err)
+            setLoader(false)
+            setPic(false)
+            toast.error('Image did not upload successfully!', {
+                position: "top-left",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        })
+
     }
 
 
@@ -439,15 +532,39 @@ const UpdateProduct = () => {
                         <div className={styles2.imgContainer}>
                             <div className={styles2.inpImageFile}>
                                 <label htmlFor="image">Image</label>
-                                <input ref={image} onChange={handleChange} type="file" id="image" name="imge" accept="image/png, image/jpeg, image/jpg" />
+                                <input ref={image} onChange={handleChange} type="file" id="image" name="image" accept="image/png, image/jpeg, image/jpg" />
+
+                                {/* upload image  */}
+                                <div className={styles.imgFiles}>
+                                    <button onClick={uploadImage} className={styles.uploadButton}>Upload</button>
+                                    {/* loader */}
+                                    {loader == true && <ThreeDots
+                                        visible={true}
+                                        height="40"
+                                        width="40"
+                                        color="#4fa94d"
+                                        radius="9"
+                                        ariaLabel="three-dots-loading"
+                                        wrapperStyle={{}}
+                                        wrapperClass=""
+                                    />}
+                                    {/* image  */}
+                                    {pic == true && <img src="/check.png" alt="img" width={25} height={25} />}
+                                </div>
                             </div>
-                            <div className={styles2.img}><Image alt='image' src={pic} width={100} height={100} /></div>
+
+                            <div className={styles2.img}><img alt='image' src={pic2} width={100} height={100} /></div>
                         </div>
 
                         {/* category-1 */}
                         <div className={styles.inpDiv}>
                             <label htmlFor="category1">Choose Category 1:</label>
-                            <select ref={cat1} id='category1' name='category1' placeholder='Category-1' onChange={cat1Select} className={styles.category}>
+                            {/* changable  */}
+                            {categ == true && <input readOnly type="text" name='category2' id='category2' value={inpCat} className={styles.userInput} />}
+                            {categ == true && <span onClick={changeCat} className={styles2.update}>Update</span>}
+
+                            {/* not changable  */}
+                            {categ == false && <select ref={cat1} id='category1' name='category1' placeholder='Category-1' onChange={cat1Select} className={styles.category}>
                                 <option hidden selected>Category-1</option>
                                 <option value="Biscuits-and-Snacks">Biscuits & Snacks</option>
                                 <option value="Dryfruits">Dryfruits</option>
@@ -460,7 +577,7 @@ const UpdateProduct = () => {
                                 <option value="Personal-and-Babycare">Personal & Baby care</option>
                                 <option value="Cleaning-and-Household">Cleaning & Household</option>
                                 <option value="Pooja-path">Pooja-path</option>
-                            </select>
+                            </select>}
                         </div>
 
                         {/* category-2 */}
@@ -495,20 +612,30 @@ const UpdateProduct = () => {
 
                         {/* size */}
                         <div className={styles.inpDiv}>
-                            <label htmlFor="mobile">Size</label>
+                            {/* size1  */}
+                            <label htmlFor="size">Size1</label>
                             <input onChange={handleChange} value={size} type="text" name='size' className={styles.userInput} />
+
+                            {/* size2  */}
+                            <label htmlFor="size2">Size2</label>
+                            <input onChange={handleChange} value={size2} type="text" name='size2' className={styles.userInput} />
                         </div>
 
                         {/* available-qty */}
                         <div className={styles.inpDiv}>
-                            <label htmlFor="mobile">Available Quantitity</label>
+                            <label htmlFor="availableQty">Available Quantitity</label>
                             <input onChange={handleChange} value={availableQty} type="number" name='availableOty' className={styles.userInput} />
                         </div>
 
                         {/* price */}
                         <div className={styles.inpDiv}>
-                            <label htmlFor="mobile">Price</label>
-                            <input onChange={handleChange} value={price} type="number" name='price' className={styles.userInput} />
+                            {/* price1  */}
+                            <label htmlFor="price">Price1</label>
+                            <input onChange={handleChange} value={price} type="text" name='price' className={styles.userInput} />
+
+                            {/* price2  */}
+                            <label htmlFor="price">Price2</label>
+                            <input onChange={handleChange} value={price2} type="text" name='price2' className={styles.userInput} />
                         </div>
 
                         {/* description  */}

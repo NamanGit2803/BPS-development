@@ -1,0 +1,233 @@
+@media (min-width: 1001px) {
+  .ppSection {
+    min-height: 65vh;
+    padding: 20px;
+  }
+
+  .heading {
+    margin: 25px 0px 20px 0px;
+    text-align: center;
+  }
+
+  .heading h1 {
+    font-family: var(--font-heading);
+    font-size: 30px;
+  }
+
+  /* information  */
+  .infoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--second-font);
+    font-size: 17px;
+  }
+
+  .infoContainer h2 {
+    margin: 10px 0px;
+    font-family: var(--third-font);
+    font-size: 22px;
+  }
+
+  .infoContainer h3 {
+    margin: 5px 0px;
+    font-family: var(--third-font);
+    font-size: 20px;
+  }
+
+  .infoContainer h4 {
+    margin: 4px 0px;
+    font-family: var(--third-font);
+    font-size: 18px;
+  }
+
+  .infoContainer2 {
+    width: 80%;
+  }
+
+  .infoContainer2 li {
+    margin-left: 20px;
+    margin-top: 5px;
+  }
+
+  .infoContainer2 p {
+    margin: 8px 0px;
+  }
+}
+
+/*********             ************
+          for tablet  
+********               **********/
+@media (min-width: 426px) and (max-width: 1000px) {
+  .ppSection {
+    min-height: 65vh;
+    padding: 10px;
+  }
+
+  .heading {
+    margin: 25px 0px 20px 0px;
+    text-align: center;
+  }
+
+  .heading h1 {
+    font-family: var(--font-heading);
+    font-size: 30px;
+  }
+
+  /* information  */
+  .infoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--second-font);
+    font-size: 18px;
+  }
+
+  .infoContainer h2 {
+    margin: 10px 0px;
+    font-family: var(--third-font);
+    font-size: 22px;
+  }
+
+  .infoContainer h3 {
+    margin: 5px 0px;
+    font-family: var(--third-font);
+    font-size: 20px;
+  }
+
+  .infoContainer h4 {
+    margin: 4px 0px;
+    font-family: var(--third-font);
+    font-size: 18px;
+  }
+
+  .infoContainer2 {
+    width: 95%;
+  }
+
+  .infoContainer2 li {
+    margin-left: 20px;
+    margin-top: 5px;
+  }
+
+  .infoContainer2 p {
+    margin: 8px 0px;
+  }
+}
+
+/*********              ***********
+            for mobile
+*********               ********/
+@media (min-width: 325px) and (max-width: 425px) {
+  .ppSection {
+    min-height: 65vh;
+    padding: 8px;
+  }
+
+  .heading {
+    margin: 25px 0px 20px 0px;
+    text-align: center;
+  }
+
+  .heading h1 {
+    font-family: var(--font-heading);
+    font-size: 30px;
+  }
+
+  /* information  */
+  .infoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--second-font);
+    font-size: 16px;
+  }
+
+  .infoContainer h2 {
+    margin: 8px 0px;
+    font-family: var(--third-font);
+    font-size: 21px;
+  }
+
+  .infoContainer h3 {
+    margin: 4px 0px;
+    font-family: var(--third-font);
+    font-size: 18px;
+  }
+
+  .infoContainer h4 {
+    margin: 4px 0px;
+    font-family: var(--third-font);
+    font-size: 17px;
+  }
+
+  .infoContainer2 li {
+    margin-left: 20px;
+    margin-top: 5px;
+  }
+
+  .infoContainer2 p {
+    margin: 6px 0px;
+  }
+}
+
+/*********                  *******
+             for small  
+**********                 *******/
+@media (min-width: 250px) and (max-width: 324px) {
+  .ppSection {
+    min-height: 65vh;
+    padding: 8px;
+  }
+
+  .heading {
+    margin: 25px 0px 20px 0px;
+    text-align: center;
+
+  }
+
+  .heading h1 {
+    font-family: var(--font-heading);
+    font-size: 1.7rem;
+  }
+
+  /* information  */
+  .infoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--second-font);
+    font-size: 16px;
+  }
+
+  .infoContainer h2 {
+    margin: 8px 0px;
+    font-family: var(--third-font);
+    font-size: 21px;
+  }
+
+  .infoContainer h3 {
+    margin: 4px 0px;
+    font-family: var(--third-font);
+    font-size: 18px;
+  }
+
+  .infoContainer h4 {
+    margin: 4px 0px;
+    font-family: var(--third-font);
+    font-size: 17px;
+  }
+
+  .infoContainer2 li {
+    margin-left: 20px;
+    margin-top: 5px;
+  }
+
+  .infoContainer2 p {
+    margin: 6px 0px;
+  }
+}

@@ -6,7 +6,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { toast } from 'react-toastify'
 
-const MyAccount = ({logout}) => {
+
+const MyAccount = ({ logout }) => {
 
     const router = useRouter()
 
@@ -17,11 +18,12 @@ const MyAccount = ({logout}) => {
     const [address, setaddress] = useState('')
     const [changeName, setChangeName] = useState('Change Name')
     const [changeAddress, setChangeAddress] = useState('')
-    const [passIcon1, setPassIcon1] = useState('/hide.png')
-    const [passIcon2, setPassIcon2] = useState('/hide.png')
-    const [passIcon3, setPassIcon3] = useState('/hide.png')
+    const [passIcon1, setPassIcon1] = useState('/visible.png')
+    const [passIcon2, setPassIcon2] = useState('/visible.png')
+    const [passIcon3, setPassIcon3] = useState('/visible.png')
     const [changePhone, setChangePhone] = useState('')
     const [OTP, setOTP] = useState('')
+    const [timer, setTimer] = useState(15)
 
     const [currentPassword, setCurrentPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
@@ -246,33 +248,33 @@ const MyAccount = ({logout}) => {
     const showPass1 = () => {
         if (passIcon1 == '/hide.png') {
             setPassIcon1('/visible.png')
-            currentPass.current.type = 'text'
+            currentPass.current.type = 'password'
         }
         else {
             setPassIcon1('/hide.png')
-            currentPass.current.type = 'password'
+            currentPass.current.type = 'text'
         }
     }
 
     const showPass2 = () => {
         if (passIcon2 == '/hide.png') {
             setPassIcon2('/visible.png')
-            newPass.current.type = 'text'
+            newPass.current.type = 'password'
         }
         else {
             setPassIcon2('/hide.png')
-            newPass.current.type = 'password'
+            newPass.current.type = 'text'
         }
     }
 
     const showPass3 = () => {
         if (passIcon3 == '/hide.png') {
             setPassIcon3('/visible.png')
-            reEnterPass.current.type = 'text'
+            reEnterPass.current.type = 'password'
         }
         else {
             setPassIcon3('/hide.png')
-            reEnterPass.current.type = 'password'
+            reEnterPass.current.type = 'text'
         }
     }
 
@@ -295,15 +297,65 @@ const MyAccount = ({logout}) => {
             setOTP(otp)
             otpContainer.current.style.display = "flex"
             box1.current.select()
+
+            // call otp api 
+            const newMobile = userPhone.current.defaultValue
+            let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updateUser`, {
+                method: "POST", // or 'PUT'
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ token: localStorage.getItem('token'), otp })
+            });
+
+            // time generator 
+            let i = 15
+            const interval = setInterval(() => {
+                setTimer(i-1)   
+                i -= 1
+                if(i < 0){
+                    clearInterval(interval)
+                }
+            }, 1000);
+
+            let response = await a.json()
         }
     }
 
-    const editPhone = () => {
-        otpContainer.current.style.display = "none"
-        setChangePhone('Update')
-        userPhone.current.style.border = "1px solid #43a047ed"
-        userPhone.current.readOnly = false
-        userPhone.current.focus()
+    // resend otp 
+    const resendOtp = async (e) => {
+        e.preventDefault()
+
+        let number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        let otp = ''
+        for (let i = 0; i < 4; i++) {
+            otp = otp + number[Math.floor(Math.random() * 10)]
+        }
+
+        setOTP(otp)
+        otpContainer.current.style.display = "flex"
+        box1.current.select()
+
+        // call otp api 
+        let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updateUser`, {
+            method: "POST", // or 'PUT'
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ token: localStorage.getItem('token'), otp })
+        });
+
+        // time generator 
+        let i = 15
+        const interval = setInterval(() => {
+            setTimer(i-1)   
+            i -= 1
+            if(i < 0){
+                clearInterval(interval)
+            }
+        }, 1000);
+
+        let response = await a.json()
     }
 
     // otp function 
@@ -344,7 +396,7 @@ const MyAccount = ({logout}) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ token: localStorage.getItem('token'), newMobile, otp })
+                body: JSON.stringify({ token: localStorage.getItem('token'), newMobile })
             });
 
             let response = await a.json()
@@ -468,65 +520,71 @@ const MyAccount = ({logout}) => {
 
 
                 <form action="#" method='POST' className={styles.userDetailForm} >
-                    {/* user name  */}
-                    <div className={`${styles.userName}`}>
-                        <div className={`${styles.Fname}`}>
-                            <label htmlFor="FName">Name</label>
-                            <input onChange={handleChange} ref={name} readOnly value={fName} type="text" name="Fname" id="FName" className={styles.userInput} spellCheck={false} />
-                            <span onClick={updateName}>{changeName}</span>
+                    <div className={styles.formContainer}>
+                        {/* user name  */}
+                        <div className={`${styles.userName}`}>
+                            <div className={`${styles.Fname}`}>
+                                <label htmlFor="FName">Name</label>
+                                <input onChange={handleChange} ref={name} readOnly value={fName} type="text" name="Fname" id="FName" className={styles.userInput} spellCheck={false} />
+                                <span onClick={updateName}>{changeName}</span>
+                            </div>
+
+                            {/* user-email  */}
+                            <div className={`${styles.Lname}`}>
+                                <label htmlFor="email">Email</label>
+                                <input value={email} type="text" name="email" id="email" className={styles.userInput} readOnly />
+                            </div>
                         </div>
 
-                        {/* user-email  */}
-                        <div className={`${styles.Lname}`}>
-                            <label htmlFor="email">Email</label>
-                            <input value={email} type="text" name="email" id="email" className={styles.userInput} readOnly />
-                        </div>
-                    </div>
+                        {/* passsword  */}
+                        <div className={styles.inpDiv}>
+                            <label htmlFor="password">Password</label>
+                            <input value={password} type="password" name='password' className={styles.userInput} readOnly id='password' />
 
-                    {/* passsword  */}
-                    <div className={styles.inpDiv}>
-                        <label htmlFor="password">Password</label>
-                        <input value={password} type="password" name='password' className={styles.userInput} readOnly id='password' />
-
-                        {/* change password  */}
-                        <div onClick={passwordChangeDispaly} className={styles.changePassword}>Change Password</div>
-                    </div>
-
-                    {/* phone-number  */}
-                    <div className={styles.inpDiv}>
-                        <label htmlFor="mobile">Phone</label>
-                        <input value={phone} ref={userPhone} type="tel" name='mobile' className={styles.userInput} onChange={handleChange} id='mobile' readOnly />
-                        <span className={styles.updateAddress} onClick={updateMobile}>{changePhone}</span>
-                    </div>
-
-                    {/* address  */}
-                    <div className={styles.inpDiv}>
-                        <label htmlFor="address">Address</label>
-                        <textarea cols={4} rows={4} className={styles.address} value={address} onChange={handleChange} spellCheck={false} ref={userAddress} type="text" name='address' readOnly id='address' />
-                        <span className={styles.updateAddress} onClick={updateAddress}>{changeAddress}</span>
-                    </div>
-
-                    {/* city  */}
-                    <div className={`${styles.userCity} ${styles.inpDiv}`}>
-                        <label htmlFor="city">City</label>
-                        <input type="text" name='city' id='city' className={styles.userInput} value={'Baran'} readOnly />
-                    </div>
-
-                    {/* otp varification  */}
-                    <div ref={otpContainer} className={styles.otpVerifyContainer}>
-                        <div onClick={closeOtpConatiner} className={styles.close}><Image src={'/close.png'} height={13} alt='' width={13} /></div>
-                        <h4>Otp has been send to on <span>{phone}</span> mobile number.</h4>
-                        <div className={styles.otpInpContainer}>
-                            <input onChange={otpFunct} ref={box1} autoFocus onKeyDown={keyDown} className={styles.otpInp} type="text" id='box1' name="otpbox1" maxLength={1} />
-                            <input onChange={otpFunct} onKeyDown={keyDown} ref={box2} className={styles.otpInp} type="text" id='box2' name="otpbox2" maxLength={1} />
-                            <input onChange={otpFunct} onKeyDown={keyDown} ref={box3} className={styles.otpInp} type="text" id='box3' name="otpbox3" maxLength={1} />
-                            <input onChange={otpFunct} onKeyDown={keyDown} ref={box4} className={styles.otpInp} type="text" id='box4' name="otpbox4" maxLength={1} />
+                            {/* change password  */}
+                            <div onClick={passwordChangeDispaly} className={styles.changePassword}>Change Password</div>
                         </div>
 
-                        <div onClick={editPhone} className={styles.editNumber}>Edit number</div>
+                        {/* phone-number  */}
+                        <div className={styles.inpDiv}>
+                            <label htmlFor="mobile">Phone</label>
+                            <input value={phone} ref={userPhone} type="tel" name='mobile' className={styles.userInput} onChange={handleChange} id='mobile' readOnly />
+                            <span className={styles.updateAddress} onClick={updateMobile}>{changePhone}</span>
+                        </div>
 
-                        {/* button  */}
-                        <button onClick={otpVerify}>Submit</button>
+                        {/* address  */}
+                        <div className={styles.inpDiv}>
+                            <label htmlFor="address">Address</label>
+                            <textarea cols={4} rows={4} className={styles.address} value={address} onChange={handleChange} spellCheck={false} ref={userAddress} type="text" name='address' readOnly id='address' />
+                            <span className={styles.updateAddress} onClick={updateAddress}>{changeAddress}</span>
+                        </div>
+
+                        {/* city  */}
+                        <div className={`${styles.userCity} ${styles.inpDiv}`}>
+                            <label htmlFor="city">City</label>
+                            <input type="text" name='city' id='city' className={styles.userInput} value={'Baran'} readOnly />
+                        </div>
+
+                        {/* otp varification  */}
+                        <div ref={otpContainer} className={styles.otpVerifyContainer}>
+                            <div onClick={closeOtpConatiner} className={styles.close}><Image src={'/close.png'} height={13} alt='' width={13} /></div>
+                            <h4>Otp has been send to on <span>{phone}</span> mobile number.</h4>
+                            <div className={styles.otpInpContainer}>
+                                <input onChange={otpFunct} ref={box1} autoFocus onKeyDown={keyDown} className={styles.otpInp} type="text" id='box1' name="otpbox1" maxLength={1} />
+                                <input onChange={otpFunct} onKeyDown={keyDown} ref={box2} className={styles.otpInp} type="text" id='box2' name="otpbox2" maxLength={1} />
+                                <input onChange={otpFunct} onKeyDown={keyDown} ref={box3} className={styles.otpInp} type="text" id='box3' name="otpbox3" maxLength={1} />
+                                <input onChange={otpFunct} onKeyDown={keyDown} ref={box4} className={styles.otpInp} type="text" id='box4' name="otpbox4" maxLength={1} />
+                            </div>
+
+                            {/* timer  */}
+                            {timer >= 0 && <div className={styles.editNumber}>{timer}</div>}
+
+                            {/* resend otp  */}
+                            {timer < 0 && <div onClick={resendOtp} className={styles.editNumber}>Resend OTP</div>}
+
+                            {/* button  */}
+                            <button onClick={otpVerify}>Submit</button>
+                        </div>
                     </div>
                 </form>
 

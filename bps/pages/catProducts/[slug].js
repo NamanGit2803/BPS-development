@@ -48,7 +48,7 @@ const Products = ({ addToCart, catproduct }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({data})
           });
 
           let response = await res.json()
@@ -77,7 +77,7 @@ const Products = ({ addToCart, catproduct }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({data})
           });
 
           let response = await res.json()
@@ -106,7 +106,7 @@ const Products = ({ addToCart, catproduct }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({data})
           });
 
           let response = await res.json()
@@ -134,7 +134,7 @@ const Products = ({ addToCart, catproduct }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({data})
           });
 
           let response = await res.json()
@@ -162,7 +162,7 @@ const Products = ({ addToCart, catproduct }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({data})
           });
 
           let response = await res.json()
@@ -190,7 +190,7 @@ const Products = ({ addToCart, catproduct }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({data})
           });
 
           let response = await res.json()
@@ -218,7 +218,7 @@ const Products = ({ addToCart, catproduct }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({data})
           });
 
           let response = await res.json()
@@ -246,7 +246,7 @@ const Products = ({ addToCart, catproduct }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({data})
           });
 
           let response = await res.json()
@@ -277,7 +277,7 @@ const Products = ({ addToCart, catproduct }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify({data})
         });
 
         let response = await res.json()
@@ -400,7 +400,7 @@ const Products = ({ addToCart, catproduct }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify({data})
     });
 
     let response = await res.json()

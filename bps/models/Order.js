@@ -8,9 +8,9 @@ const OrderSchema = new mongoose.Schema({
     paymentMode: {type: String, default: ''},
     products: {type: Object, required: true},
     address: {type: String, required: true},
+    payStatus: {type: String, required: true, default: 'Pending'},
     amount: {type: Number, required: true},
     status: {type: String, required: true, default: 'Initiated'},
-    deliveryStatus: {type: String, required: true, default: "Unshipped"},
     orderDate: {type: String, required: true}
         
 }, {timestamps:true});

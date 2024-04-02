@@ -1,6 +1,7 @@
-/* for laptop  */
-
-@media (min-width: 1100px) {
+/*******            *******
+         for laptop  
+*****             *******/
+@media (min-width: 1001px) {
   /*  footer   ***(section)*/
   #footer {
     min-height: 55vh;
@@ -11,9 +12,9 @@
   /* footer-1 */
   .footer1 {
     min-height: 47vh;
-    background-color: #3d5656;
+    background-color: #161925;
     display: grid;
-    grid-template-columns: 3fr 2fr 2fr 2fr;
+    grid-template-columns: 1fr 2.5fr;
   }
 
   .namelogo {
@@ -37,7 +38,7 @@
   .nameContent h1 {
     font-family: "Sansita", sans-serif;
     font-size: 2.5rem;
-    color: #fed049;
+    color: #cfd8dc;
     display: flex;
     align-items: center;
   }
@@ -53,12 +54,19 @@
     justify-content: center;
     align-items: center;
     font-size: 16px;
-    color: #fff8e1;
+    color: #b0b2b8;
     margin-top: 10px;
     font-family: var(--second-font);
   }
 
+
   /*  links  */
+  .infoContainer{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+  }
+
   .quickLinks {
     display: flex;
     justify-content: center;
@@ -135,7 +143,7 @@
 
   /* footer-2 */
   .footer2 {
-    background-color: black;
+    background-color: #1e212d;
     height: 50px;
     color: antiquewhite;
     display: flex;
@@ -146,9 +154,8 @@
   }
 }
 
-/****** for mobile  ********/
-
-@media (min-width: 250px) and (max-width: 480px) {
+/*****   for tablet    ******/
+@media (min-width: 426px) and (max-width: 1000px) {
   /*  footer   ***(section)*/
   #footer {
     display: flex;
@@ -157,7 +164,175 @@
 
   /* footer-1 */
   .footer1 {
-    background-color: #3d5656;
+    background-color: #161925;
+    padding: 5px;
+  }
+
+  .namelogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 35px 0px;
+  }
+
+  .nameContent {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .nameContent a {
+    text-decoration: none;
+  }
+
+  .nameContent h1 {
+    font-family: "Sansita", sans-serif;
+    font-size: 2.3rem;
+    color: #cfd8dc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .nameContent h1 img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .nameDesc {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    color: #b0b2b8;
+    margin-top: 5px;
+    font-family: var(--second-font);
+    padding: 0px 15%;
+  }
+
+  /*  product  */
+  .product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px;
+  }
+
+  /*  links  */
+  .infoContainer{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-top: 50px;
+  }
+
+  .quickLinks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px;
+  }
+
+  .linkDesc {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .linkDesc h2 {
+    font-size: 18px;
+    margin-bottom: 3px;
+    color: #f0faff;
+    font-family: var(--second-font);
+  }
+
+  .linkI {
+    background-color: #898989;
+    min-height: 1px;
+    display: block;
+    margin-top: 3px;
+    max-width: 168px;
+  }
+
+  .linkDesc ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    line-height: 25px;
+  }
+
+  .linkDesc ul li {
+    margin: 2px 0px;
+  }
+
+  .linkDesc ul li a {
+    text-decoration: none;
+    color: #d1d9dd;
+    font-size: 17px;
+    font-family: var(--second-font);
+  }
+
+  .linkDesc ul li a:hover {
+    color: #f0faff;
+  }
+
+  /*   policy  */
+  .policy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px;
+    margin-left: 15px;
+  }
+
+  .ploicyI {
+    background-color: #898989;
+    min-height: 1px;
+    display: block;
+    margin-top: 3px;
+    max-width: 63px;
+  }
+
+  .productI {
+    background-color: #898989;
+    min-height: 1px;
+    display: block;
+    margin-top: 3px;
+    max-width: 89px;
+  }
+
+  /* footer-2 */
+  .footer2 {
+    background-color: #1e212d;
+    height: 80px;
+    color: antiquewhite;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    font-family: var(--font-heading);
+    font-size: 17px;
+    padding: 5px;
+    padding-top: 13px;
+    margin-bottom: 45px;
+  }
+}
+
+/****** for mobile  ********/
+
+@media (min-width: 250px) and (max-width: 425px) {
+  /*  footer   ***(section)*/
+  #footer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* footer-1 */
+  .footer1 {
+    background-color: #161925;
     padding: 5px;
   }
 
@@ -180,17 +355,17 @@
 
   .nameContent h1 {
     font-family: "Sansita", sans-serif;
-    font-size: 1.5rem;
-    color: #fed049;
+    font-size: 2rem;
+    color: #cfd8dc;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
   }
 
   .nameContent h1 img {
     width: 50px;
     height: 50px;
-    margin-right: 15px;
   }
 
   .nameDesc {
@@ -198,10 +373,11 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
-    color: #fff8e1;
+    font-size: 15px;
+    color: #b0b2b8;
     margin-top: 5px;
     font-family: var(--second-font);
+    padding: 0px 15%;
   }
 
   /*  product  */
@@ -220,7 +396,7 @@
     margin: 10px 0px;
   }
 
-  .linkDesc{
+  .linkDesc {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -228,7 +404,7 @@
   }
 
   .linkDesc h2 {
-    font-size: 15px;
+    font-size: 17px;
     margin-bottom: 3px;
     color: #f0faff;
     font-family: var(--second-font);
@@ -248,6 +424,7 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    line-height: 25px;
   }
 
   .linkDesc ul li {
@@ -257,7 +434,7 @@
   .linkDesc ul li a {
     text-decoration: none;
     color: #d1d9dd;
-    font-size: 12px;
+    font-size: 16px;
     font-family: var(--second-font);
   }
 
@@ -291,14 +468,16 @@
 
   /* footer-2 */
   .footer2 {
-    background-color: black;
-    height: 50px;
+    background-color: #1e212d;
+    height: 70px;
     color: antiquewhite;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: self-start;
     font-family: var(--font-heading);
     font-size: 15px;
     padding: 5px;
+    padding-top: 15px;
+    margin-bottom: 55px;
   }
 }

@@ -1,4 +1,4 @@
-@media (min-width: 1100px) {
+@media (min-width: 1001px) {
   .orderSection {
     min-height: 100vh;
     display: flex;
@@ -42,7 +42,7 @@
     align-items: center;
   }
 
-  .status{
+  .status {
     font-weight: 700;
   }
 
@@ -179,6 +179,10 @@
     padding: 5px 5px;
   }
 
+  .containerHeading{
+    display: none;
+  }
+
   .infoContainer h3 {
     font-family: var(--font-heading);
   }
@@ -204,15 +208,286 @@
   }
 }
 
+/*****              *******
+        for tablet
+*****                *****/
+@media (min-width: 426px) and (max-width: 1000px) {
+  .orderSection {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
 
+  .container {
+    margin-top: 10px;
+  }
 
+  /*  heading   */
+  .heading {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
 
+  .heading h1 {
+    font-size: 25px;
+    font-family: var(--font-heading);
+  }
 
+  /*  order placed message  */
+  .placedOrderMsg {
+    margin-bottom: 5px;
+    font-family: var(--second-font);
+    font-size: 18px;
+    color: #2e7d32;
+  }
 
-/*******                       ******** 
-              for mobile  
-********                       *******/
-@media (min-width: 250px) and (max-width: 450px) {
+  .payStatus {
+    margin-bottom: 10px;
+    font-family: var(--second-font);
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .payStatus div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .status {
+    font-weight: 700;
+  }
+
+  /*  order-deatil-container  */
+  .orderDetailsContainer {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 5px;
+    min-height: 45vh;
+    max-height: 50vh;
+    overflow: hidden scroll;
+    margin-bottom: 10px;
+  }
+
+  .orderDetailsContainer::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* order table head  */
+  .orderTableHead {
+    display: grid;
+    grid-template-columns: 2.4fr 0.8fr 1fr 0.8fr;
+    padding: 4px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    font-family: var(--third-font);
+    background-color: #e8f5e9;
+  }
+
+  .orderTableHead div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  /*  item-list-container  */
+  .itemListContainer {
+    display: grid;
+    grid-template-columns: 0.7fr 1.7fr 0.8fr 1fr 0.8fr;
+    margin: 4px 0px;
+    height: 13vh;
+    font-family: var(--second-font);
+    padding: 5px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  /*  item-img  */
+  .itemImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .itemImage img {
+    height: 10vh;
+    width: 13vw;
+  }
+
+  /*  name and weight  */
+  .itemName {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px 7px;
+  }
+
+  .name {
+    font-size: 17px;
+    font-weight: 700;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+
+  .weight {
+    font-size: 15px;
+    margin: 4px 0px;
+  }
+
+  /*  qty  */
+  .itemQty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--second-font);
+    font-size: 1.2rem;
+  }
+
+  /*  item-price*qty  */
+  .itemTotal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--second-font);
+    font-size: 1.2rem;
+  }
+
+  /*   total-amount  */
+  .totalAmount {
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .total {
+    font-size: 23px;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .priceContainer {
+    font-size: 18px;
+    margin: 2px 0px;
+    padding: 8px 0px;
+    border-bottom: 2px solid black;
+    font-family: var(--second-font);
+  }
+
+  .price {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .subtotalContainer {
+    width: 100%;
+    padding: 5px 5px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  /* info conatiner  */
+  .infoContainer {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  .containerHeading{
+    background-color: #e8f5e9;
+    font-family: var(--third-font);
+    height: 25px;
+    font-size: 17px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+  }
+
+  .infoContainer h3 {
+    font-family: var(--font-heading);
+    font-size: 18px;
+  }
+
+  .infoContainer span {
+    font-size: 14px;
+    font-family: var(--second-font);
+  }
+
+  /* email  */
+  .email {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr;
+    align-items: center;
+    margin: 4px 0px;
+  }
+
+  .email span{
+    font-size: 18px;
+    white-space: nowrap;
+    width: 45vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* address  */
+  .addressContainer {
+    margin: 4px 0px;
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr;
+    align-items: center;
+  }
+
+  .addressContainer span{
+    white-space: nowrap;
+    width: 45vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 18px;
+  }
+
+  /* payment mode  */
+  .payMode {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr;
+    margin: 4px 0px;
+    align-items: center;
+    margin: 4px 0px;
+  }
+
+  .payMode span{
+    white-space: nowrap;
+    width: 45vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 18px;
+  }
+}
+
+/*******              ******** 
+          for mobile  
+********                *******/
+@media (min-width: 336px) and (max-width: 425px) {
   .orderSection {
     min-height: 100vh;
     display: flex;
@@ -255,14 +530,14 @@
     align-items: center;
   }
 
-  .payStatus div{
+  .payStatus div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
   }
 
-  .status{
+  .status {
     font-weight: 700;
   }
 
@@ -364,6 +639,8 @@
   .totalAmount {
     margin: 10px 0px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: space-between;
   }
 
@@ -390,19 +667,36 @@
   }
 
   .subtotalContainer {
-    width: 45vw;
-    padding: 5px;
+    width: 100%;
+    padding: 5px 5px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
 
   /* info conatiner  */
   .infoContainer {
-    width: 40vw;
-    padding: 5px 5px;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  .containerHeading{
+    background-color: #e8f5e9;
+    font-family: var(--third-font);
+    height: 25px;
+    font-size: 17px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
   }
 
   .infoContainer h3 {
     font-family: var(--font-heading);
-    font-size: large;
+    font-size: 16px;
   }
 
   .infoContainer span {
@@ -412,16 +706,330 @@
 
   /* email  */
   .email {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr;
+    align-items: center;
     margin: 4px 0px;
+  }
+
+  .email span{
+    font-size: 17px;
+    white-space: nowrap;
+    width: 42vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* address  */
   .addressContainer {
     margin: 4px 0px;
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr;
+    align-items: center;
+  }
+
+  .addressContainer span{
+    white-space: nowrap;
+    width: 42vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 17px;
   }
 
   /* payment mode  */
   .payMode {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr;
     margin: 4px 0px;
+    align-items: center;
+    margin: 4px 0px;
+  }
+
+  .payMode span{
+    white-space: nowrap;
+    width: 42vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 17px;
+  }
+}
+
+/*****  for small mobile  *****/
+@media (min-width: 250px) and (max-width: 335px) {
+  .orderSection {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .container {
+    margin-top: 10px;
+  }
+
+  /*  heading   */
+  .heading {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .heading h1 {
+    font-size: 23px;
+    font-family: var(--font-heading);
+  }
+
+  /*  order placed message  */
+  .placedOrderMsg {
+    margin-bottom: 2px;
+    font-family: var(--second-font);
+    font-size: 15px;
+    color: #2e7d32;
+  }
+
+  .payStatus {
+    margin-bottom: 10px;
+    font-family: var(--second-font);
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .payStatus div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  /* date  */
+  .orderDate span{
+    white-space: nowrap;
+    width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .status {
+    font-weight: 700;
+  }
+
+  /*  order-deatil-container  */
+  .orderDetailsContainer {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 5px;
+    min-height: 45vh;
+    max-height: 50vh;
+    overflow: hidden scroll;
+    margin-bottom: 10px;
+  }
+
+  .orderDetailsContainer::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* order table head  */
+  .orderTableHead {
+    display: grid;
+    grid-template-columns: 2.4fr 0.8fr 1fr 0.8fr;
+    padding: 4px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    font-family: var(--third-font);
+    background-color: #e8f5e9;
+  }
+
+  .orderTableHead div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4.3vw;
+    font-weight: 700;
+  }
+
+  /*  item-list-container  */
+  .itemListContainer {
+    display: grid;
+    grid-template-columns: 0.9fr 1.5fr 0.8fr 0.8fr 0.8fr;
+    margin: 4px 0px;
+    height: 11vh;
+    font-family: var(--second-font);
+    padding: 5px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  /*  item-img  */
+  .itemImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .itemImage img {
+    height: 10vh;
+    width: 15vw;
+  }
+
+  /*  name and weight  */
+  .itemName {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px 7px;
+  }
+
+  .name {
+    white-space: nowrap;
+    width: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: smaller;
+    font-weight: 700;
+  }
+
+  .weight {
+    font-size: small;
+    margin: 4px 0px;
+  }
+
+  /*  qty  */
+  .itemQty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--second-font);
+    font-size: smaller;
+  }
+
+  /*  item-price*qty  */
+  .itemTotal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--second-font);
+    font-size: smaller;
+  }
+
+  /*   total-amount  */
+  .totalAmount {
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .total {
+    font-size: 21px;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .priceContainer {
+    font-size: 15px;
+    margin: 2px 0px;
+    padding: 8px 0px;
+    border-bottom: 2px solid black;
+    font-family: var(--second-font);
+  }
+
+  .price {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .subtotalContainer {
+    width: 100%;
+    padding: 5px 5px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  /* info conatiner  */
+  .infoContainer {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  .containerHeading{
+    background-color: #e8f5e9;
+    font-family: var(--third-font);
+    height: 25px;
+    font-size: 17px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+  }
+
+  .infoContainer h3 {
+    font-family: var(--font-heading);
+    font-size: 16px;
+  }
+
+  .infoContainer span {
+    font-size: 14px;
+    font-family: var(--second-font);
+  }
+
+  /* email  */
+  .email {
+    display: grid;
+    grid-template-columns: 1.2fr 1.5fr;
+    align-items: center;
+    margin: 4px 0px;
+  }
+
+  .email span{
+    font-size: 16px;
+    white-space: nowrap;
+    width: 113px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* address  */
+  .addressContainer {
+    margin: 4px 0px;
+    display: grid;
+    grid-template-columns: 1.2fr 1.5fr;
+    align-items: center;
+  }
+
+  .addressContainer span{
+    white-space: nowrap;
+    width: 113px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+  }
+
+  /* payment mode  */
+  .payMode {
+    display: grid;
+    grid-template-columns: 1.2fr 1.5fr;
+    margin: 4px 0px;
+    align-items: center;
+    margin: 4px 0px;
+  }
+
+  .payMode span{
+    white-space: nowrap;
+    width: 113px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
   }
 }

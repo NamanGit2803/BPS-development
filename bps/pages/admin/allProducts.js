@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import AdminSideNav from '@/components/AdminSideNav'
+import Link from 'next/link'
 
 const AllProduct = () => {
 
@@ -207,13 +208,13 @@ const AllProduct = () => {
 
             {/* table data  */}
             {products.map((prod) => {
-              return <div className={styles.tableData}>
+              return <Link className={styles.tableDataLink} href={`/admin/Product/${prod.slug}`}><div className={styles.tableData}>
                 <div className={styles.data}><Image alt='' src={'/Maggi.jpg'} height={50} width={50} /></div>
-                <div className={styles.data}>{prod.title}</div>
+                <div className={styles.dataName}>{prod.title}</div>
                 <div className={styles.data}>{prod.id}</div>
-                <div className={styles.data}>{prod.size}</div>
-                <div className={styles.data}>₹{prod.price}</div>
-              </div>
+                <div className={styles.data}>{prod.size} {prod.size2 && ','} {prod.size2 &&  prod.size2}</div>
+                <div className={styles.data}>₹{prod.price} {prod.price2 && ',  ₹'}{prod.price2 &&  prod.price2}</div>
+              </div></Link>
             })}
           </div>
         </div>

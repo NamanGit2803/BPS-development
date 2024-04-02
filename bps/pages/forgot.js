@@ -26,13 +26,14 @@ const Forgot = () => {
   // useEffect 
   useEffect(() => {
     if (localStorage.getItem('token')) {
-      router.push('/')
+      router.push(process.env.NEXT_PUBLIC_HOST)
     }
+
   }, [router.query])
 
 
   // send email for reset password
-  const sendEmail = async (e) => {
+  const sendMail = async (e) => {
     e.preventDefault()
 
     let user = {
@@ -51,7 +52,7 @@ const Forgot = () => {
 
     let res = await a.json()
     if (res.success) {
-      toast.success('Password reset instruction has been send to your email', {
+      toast.success('Password reset instruction has been send to on your email', {
         position: "top-left",
         autoClose: 2000,
         hideProgressBar: true,
@@ -217,10 +218,10 @@ const Forgot = () => {
 
         {/* if token not  */}
         {!router.query.token && <form action="" className={styles.forgotPassword}>
-          <input onChange={handleChange} ref={emailInp} spellCheck={false} className={styles.userInput} autoComplete={false} placeholder='Email Address' value={email} type="email" name="forgot" id="forgot" />
+          <input onChange={handleChange} ref={emailInp} spellCheck={false} className={styles.userInput} autoComplete={false} placeholder='Email' value={email} type="email" name="forgot" id="forgot" />
 
           {/* button */}
-          <button type='submit' disabled={disabled} onClick={sendEmail} className={styles.button}>Continue</button>
+          <button type='submit' disabled={disabled} onClick={sendMail} className={styles.button}>Continue</button>
         </form>}
       </div>
     </section>

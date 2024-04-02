@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import mongoose from 'mongoose'
 import Error from 'next/error'
 
-const MyOrder = ({ cart, addToCart, removeFromCart, subTotal, DeliveryCharge, order, error }) => {
+const MyOrder = ({ DeliveryCharge, order, error }) => {
 
   if (error == 404) {
     return <Error statusCode={404} />
@@ -23,8 +23,8 @@ const MyOrder = ({ cart, addToCart, removeFromCart, subTotal, DeliveryCharge, or
         <div className={styles.placedOrderMsg}>Your order has been successfully placed.</div>
 
         <div className={styles.payStatus}>
-          <div>Your payment status is: <span className={styles.status}>{order.status}</span></div>
-          <div>Order Date: <span>{order.orderDate}</span></div>
+          <div>Your order status is: <span className={styles.status}>{order.status}</span></div>
+          <div className={styles.orderDate}>Order Date: <span>{order.orderDate}</span></div>
         </div>
 
         {/* order-detail-container  */}
@@ -66,35 +66,37 @@ const MyOrder = ({ cart, addToCart, removeFromCart, subTotal, DeliveryCharge, or
         <div className={styles.totalAmount}>
           {/* info container  */}
           <div className={styles.infoContainer}>
+            <div className={styles.containerHeading}>Billing Information</div>
             {/* name  */}
             <div className={styles.email}>
-              <h3>Name:</h3>
+              <h3>Name :</h3>
               <span>{order.name}</span>
             </div>
             {/* email  */}
             <div className={styles.email}>
-              <h3>Email:</h3>
+              <h3>Email :</h3>
               <span>{order.email}</span>
             </div>
             {/* payment mode  */}
             <div className={styles.payMode}>
-              <h3>Payment Mode:</h3>
+              <h3>Payment Mode :</h3>
               <span>{order.paymentMode}</span>
             </div>
             {/* address  */}
             <div className={styles.addressContainer}>
-              <h3>Delivery Address:</h3>
+              <h3>Delivery Address :</h3>
               <span>{order.address}</span>
             </div>
           </div>
 
           {/* total amount  */}
           <div className={styles.subtotalContainer}>
+          <div className={styles.containerHeading}>Subtotal Information</div>
             <div className={styles.priceContainer}>
-              <div className={styles.price}>SubTotal: <span>₹{order.amount - DeliveryCharge}</span></div>
+              <div className={styles.price}>SubTotal: <span>₹{order.amount}</span></div>
               <div className={styles.price}>Delivery Charge: <span>₹{DeliveryCharge}</span></div>
             </div>
-            <div className={styles.total}>Total: <span>₹{order.amount}</span></div>
+            <div className={styles.total}>Total: <span>₹{order.amount + DeliveryCharge}</span></div>
           </div>
 
         </div>

@@ -1,4 +1,4 @@
-@media (min-width: 1100px) {
+@media (min-width: 1001px) {
   .MyAccountSec {
     min-height: 55vh;
     padding: 20px;
@@ -286,15 +286,334 @@
 }
 
 
+/*****              *******
+        for tablet
+******              ******/
+@media (min-width: 426px) and (max-width: 1000px){
+  .MyAccountSec {
+    min-height: 55vh;
+    padding: 20px;
+    margin-bottom: 10px;
+  }
+
+  /* section heading */
+  .sectionHeading {
+    margin: 15px 0px 20px 0px;
+    display: flex;
+    justify-content: center;
+  }
+  .sectionHeading h1 {
+    font-family: var(--font-heading);
+    font-size: 30px;
+  }
+
+  /*  user information  */
+  .userDetailsContainer {
+    font-family: var(--second-font);
+    display: grid;
+    font-size: 19px;
+  }
+
+  .userDetailForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .formContainer{
+    width: 85%;
+  }
+
+  /*  name  */
+  .userName {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .inpDiv {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 2px 0px;
+  }
+
+  .Fname,
+  .Lname {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+  }
+
+  .Fname span {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: #2e7d32;
+  }
+
+  .Fname span:hover {
+    cursor: pointer;
+  }
+
+  .Fname input {
+    text-transform: capitalize;
+  }
+
+  /*  all inputs  */
+  .userInput {
+    outline: none;
+    height: 45px;
+    background-color: #eef5f3;
+    border: 0px;
+    border-radius: 10px;
+    padding: 8px;
+    font-size: 18px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+  }
+
+  .address {
+    outline: none;
+    background-color: #eef5f3;
+    border: 0px;
+    border-radius: 10px;
+    padding: 8px;
+    font-size: 17px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+    font-family: var(--second-font);
+    resize: none;
+  }
+
+  /* change password  */
+  .changePassContainer {
+    display: none;
+    position: absolute;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    height: 340px;
+    width: 85%;
+    background: #c8e6c9;
+    justify-self: center;
+  }
+
+  .changePassword {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-decoration: none;
+    color: #2e7d32;
+  }
+
+  .changePassword:hover {
+    cursor: pointer;
+  }
+
+  /* update address  */
+  .updateAddress {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: #2e7d32;
+  }
+
+  .updateAddress:hover {
+    cursor: pointer;
+  }
+
+  /* change password  */
+  .changePasswordContainer {
+    position: absolute;
+  }
+
+  .inpConatiner {
+    height: 83px;
+  }
+
+  .newPassForm {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .newPassForm input {
+    margin: 8px 0px;
+    width: 100%;
+  }
+  .close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 7px;
+    right: 8px;
+    border: 0px;
+    border-radius: 3px;
+  }
+
+  .close img {
+    width: 13px;
+    height: 13px;
+  }
+
+  .close:hover {
+    cursor: pointer;
+  }
+
+  /* button */
+  .button {
+    display: flex;
+    align-items: center;
+    height: 35px;
+    border: 0px;
+    border-radius: 5px;
+    background-color: #43a047;
+    color: #fff;
+    justify-content: center;
+    font-size: 16px;
+    font-family: var(--third-font);
+  }
+
+  .button:active {
+    background-color: #43a047ed;
+  }
+
+  .button:hover {
+    cursor: pointer;
+  }
+
+  /* show password  */
+  .showPass {
+    right: -255px;
+    position: relative;
+    top: -62px;
+  }
+
+  .showPass2 {
+    right: -255px;
+    position: relative;
+    top: -40px;
+  }
+
+  .showPass2:hover {
+    cursor: pointer;
+  }
+
+  .showPass:hover {
+    cursor: pointer;
+  }
+
+  /* invalid message  */
+  .invalidPass {
+    color: red;
+    visibility: hidden;
+    font-size: 15px;
+  }
+
+  .mismatchPass {
+    color: red;
+    visibility: hidden;
+  }
+
+  /* otp verify  */
+  .otpVerifyContainer {
+    position: fixed;
+    height: 250px;
+    width: 81%;
+    background-color: #c8e6c9;
+    top: 270px;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    flex-direction: column;
+    justify-self: center;
+    justify-content: center;
+    display: none;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+      rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+      rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  }
+
+  .otpVerifyContainer h4 {
+    font-family: var(--third-font);
+    font-size: 17px;
+    font-weight: 100;
+  }
+
+  .otpVerifyContainer h4 span {
+    color: #43a047;
+    font-weight: 700;
+  }
+
+  .otpInp {
+    width: 50px;
+    height: 50px;
+    margin: 0px 5px;
+    outline: none;
+    font-size: 20px;
+    text-align: center;
+    border: 1px solid;
+    border-radius: 6px;
+  }
+
+  .otpInp:nth-child(1) {
+    cursor: auto;
+    pointer-events: all;
+  }
+
+  .otpInpContainer {
+    margin: 20px 0px;
+  }
+
+  .editNumber {
+    color: #43a047;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: var(--third-font);
+  }
+
+  /* button  */
+  .otpVerifyContainer button {
+    border: 0px;
+    width: 40%;
+    height: 35px;
+    border-radius: 5px;
+    background-color: #43a047;
+    color: #fff;
+    margin-top: 12px;
+    font-family: var(--third-font);
+    font-size: 16px;
+  }
+
+  .otpVerifyContainer button:hover {
+    cursor: pointer;
+  }
+
+  .otpVerifyContainer button:active {
+    background-color: #43a047ed;
+  }
 
 
+  /* logout button  */
+  .logout{
+    margin-top: 20px;
+    margin-left: 7.5%;
+  }
 
-
+  .logout button{
+    border: 0px;
+    width: 40%;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #43a047;
+    color: #fff;
+    font-family: var(--third-font);
+    font-size: 17px;
+  }
+}
 
 /********                *********
            for mobile
 ********                 ********/
-@media (min-width: 250px) and (max-width: 450px) {
+@media (min-width: 250px) and (max-width: 425px) {
   .MyAccountSec {
     min-height: 55vh;
     padding: 10px;
@@ -603,3 +922,4 @@
     font-size: 15px;
   }
 }
+ 

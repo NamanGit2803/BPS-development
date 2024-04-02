@@ -15,6 +15,7 @@ const Signup = ({ SecretKey }) => {
   const [password, setpassword] = useState('')
   const [admin, setAdmin] = useState(false)
   const [secKey, setSecKey] = useState('')
+  const [passIcon2, setPassIcon2] = useState('/visible.png')
 
   const inp1 = useRef(0)
   const inp2 = useRef(0)
@@ -25,13 +26,26 @@ const Signup = ({ SecretKey }) => {
   const emailreq2 = useRef(0)
   const secretKey = useRef(0)
   const invSecKey = useRef(0)
+  const checkBox = useRef(0)
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
       router.push('/')
     }
+    console.log(checkBox.current.checked)
   }, [])
 
+  // password show function 
+  const showPass2 = () => {
+    if (passIcon2 == '/hide.png') {
+      setPassIcon2('/visible.png')
+      inp3.current.type = 'password'
+    }
+    else {
+      setPassIcon2('/hide.png')
+      inp3.current.type = 'text'
+    }
+  }
 
   // on changing input 
   const handleChange = (e) => {
@@ -60,10 +74,24 @@ const Signup = ({ SecretKey }) => {
     e.preventDefault()
 
     if (admin == true && secKey === '') {
-      secretKey.current.style.display = 'block'
+      secretKey.current.style.display = 'flex'
     }
 
     if (inp1.current.value != "" && inp2.current.value != "" && inp3.current.value != "" && admin == false) {
+
+      if(checkBox.current.checked == false){
+        toast.info('Please checked the checkbox!', {
+          position: "top-left",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+        return
+      }
       // fetch api 
       const data = { name, email, password }
       const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/signup`, {
@@ -76,6 +104,10 @@ const Signup = ({ SecretKey }) => {
 
       let response = await res.json()
       if (response.success) {
+
+        localStorage.setItem('token', response.token)
+        localStorage.setItem('name', response.name)
+
         toast.success('Your account has been created', {
           position: "top-left",
           autoClose: 2000,
@@ -96,13 +128,13 @@ const Signup = ({ SecretKey }) => {
         setpassword("")
       }
       else {
-        emailreq2.current.style.display = "block"
+        emailreq2.current.style.display = "flex"
         return
       }
     }
     else if (inp1.current.value != "" && inp2.current.value != "" && inp3.current.value != "" && admin == true && secKey !== '') {
       if (secKey == SecretKey) {
-        const data = { name, email, password, secKey}
+        const data = { name, email, password, secKey }
         const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/signup`, {
           method: "POST", // or 'PUT'
           headers: {
@@ -125,7 +157,7 @@ const Signup = ({ SecretKey }) => {
           })
 
           setTimeout(() => {
-            window.location.replace(`${process.env.NEXT_PUBLIC_ADMIN_HOST}`)
+            window.location.replace(`${process.env.NEXT_PUBLIC_HOST}/login`)
           }, 1500);
 
           setname("")
@@ -134,24 +166,24 @@ const Signup = ({ SecretKey }) => {
           setSecKey("")
         }
         else {
-          emailreq2.current.style.display = "block"
+          emailreq2.current.style.display = "flex"
           return
         }
       }
-      else{
-        invSecKey.current.style.display = 'block'
+      else {
+        invSecKey.current.style.display = 'flex'
         return
       }
     }
     else {
       if (inp1.current.value === "") {
-        namereq.current.style.display = "block"
+        namereq.current.style.display = "flex"
       }
       if (inp2.current.value === "") {
-        emailreq.current.style.display = "block"
+        emailreq.current.style.display = "flex"
       }
       if (inp3.current.value === "") {
-        passwordreq.current.style.display = "block"
+        passwordreq.current.style.display = "flex"
       }
       return
     }
@@ -188,7 +220,7 @@ const Signup = ({ SecretKey }) => {
               {/* email  */}
               <div className={styles.divInp}>
                 <label htmlFor="email"></label>
-                <input ref={inp2} value={email} onChange={handleChange} type="email"  spellCheck={false} className={styles.inp} id='email' name='email' placeholder='Email' />
+                <input ref={inp2} value={email} onChange={handleChange} type="email" spellCheck={false} className={styles.inp} id='email' name='email' placeholder='Email' />
                 {/* error messages  */}
                 <span ref={emailreq} className={styles.errorMsg}><Image src={'/alert.png'} width={15} alt='' height={15} /> Email is required!</span>
                 <span ref={emailreq2} className={styles.errorMsg}><Image src={'/alert.png'} width={15} height={15} alt='' /> Email has been already use!</span>
@@ -197,6 +229,9 @@ const Signup = ({ SecretKey }) => {
               <div className={styles.divInp}>
                 <label htmlFor="password" ></label>
                 <input ref={inp3} value={password} onChange={handleChange} type="password" className={styles.inp} id='password' name='password' placeholder='Password' />
+                {/* show password  */}
+                <div className={styles.showPass2}><Image src={passIcon2} onClick={showPass2} height={20} width={20} /></div>
+
                 {/* error messages  */}
                 <div ref={passwordreq} className={styles.errorMsg}><Image src={'/alert.png'} width={15} alt='' height={15} />Password is required!</div>
               </div>
@@ -226,7 +261,7 @@ const Signup = ({ SecretKey }) => {
               {/* checkbox  */}
               <div className={styles.checkBox}>
                 <label htmlFor="check"></label>
-                <input type="checkbox" name='check' id='check' className={styles.checkB} />
+                <input type="checkbox" name='check' ref={checkBox} id='check' className={styles.checkB} />
                 <span className={styles.termsC}>I have read the Terms & Conditions</span>
               </div>
               <div className={styles.signupBtn}>

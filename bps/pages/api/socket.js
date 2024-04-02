@@ -1,29 +1,21 @@
-import { Server } from 'socket.io'
+// import express from 'express'
+// import http from 'http'
+// import {Server} from 'socket.io'
+// const port = 4001
 
-const ioHandler = (req, res) => {
-  if (!res.socket.server.io) {
-    console.log('*First use, starting socket.io')
+// const app = express()
+// const httpServer = http.createServer(app)
 
-    const io = new Server(res.socket.server)
+// const server = new Server(httpServer, {
+//     cors: {
+//         origin: '*'
+//     }
+// })
 
-    io.on('connection', socket => {
-      socket.broadcast.emit('a user connected')
-      socket.on('hello', msg => {
-        socket.emit('hello', 'world!')
-      })
-    })
+// server.on('connection', (socket)=>{
+//     console.log('connected')
+//     socket.emit('message', 'hi')
+// })
 
-    res.socket.server.io = io
-  } else {
-    console.log('socket.io already running')
-  }
-  res.end()
-}
+// httpServer.listen(port) 
 
-export const config = {
-  api: {
-    bodyParser: false
-  }
-}
-
-export default ioHandler

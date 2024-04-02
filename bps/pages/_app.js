@@ -10,6 +10,9 @@ import { toast } from 'react-toastify'
 import LoadingBar from 'react-top-loading-bar'
 import Head from 'next/head'
 
+
+
+
 export default function App({ Component, pageProps }) {
 
   const [cart, setcart] = useState({})
@@ -97,13 +100,23 @@ export default function App({ Component, pageProps }) {
 
 
   // add to cart method
-  const addToCart = async (itemCode, qty, name, price, size, img) => {
+  const addToCart = async (itemCode, qty, name, price, size, img, price2, size2, itemCode2) => {
     let newCart = cart;
-    if (itemCode in cart) {
-      newCart[itemCode].qty = cart[itemCode].qty + qty;
+    if (price2 && size2) {
+      if (itemCode2 in cart) {
+        newCart[itemCode2].qty = cart[itemCode2].qty + qty;
+      }
+      else {
+        newCart[itemCode2] = { qty: 1, name, price: price2, size: size2, img };
+      }
     }
     else {
-      newCart[itemCode] = { qty: 1, name, price, size, img };
+      if (itemCode in cart) {
+        newCart[itemCode].qty = cart[itemCode].qty + qty;
+      }
+      else {
+        newCart[itemCode] = { qty: 1, name, price, size, img };
+      }
     }
 
     setcart(newCart);
@@ -155,12 +168,13 @@ export default function App({ Component, pageProps }) {
     />
     <ToastContainer />
 
-    {/* for user  */}
+    {/* for user navbar  */}
     {!router.asPath.includes('/admin') && <Navbar user={user} logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} subTotal={subTotal} DeliveryCharge={DeliveryCharge} clearCart={clearCart} />}
 
-    {/* for admin  */}
-    {router.asPath.includes('/admin') && <AdminNavbar></AdminNavbar>}
+    {/* for admin navbar  */}
+    {router.asPath.includes('/admin') && <AdminNavbar user={user} logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} subTotal={subTotal} DeliveryCharge={DeliveryCharge} clearCart={clearCart}></AdminNavbar>}
 
+    {/* components  */}
     <Component logout={logout} subTotal={subTotal} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} DeliveryCharge={DeliveryCharge}  {...pageProps} />
 
     {/* footer  */}

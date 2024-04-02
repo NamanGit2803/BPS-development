@@ -19,13 +19,6 @@ const handler = async (req, res) => {
         let products = await Product.find({ topCategory: { $regex: req.body.topCat, $options: "i" } })
         res.status(200).json({ success: true, products })
     }
-    else if (req.body.search1) {
-        let products = await Product.find({ category2: { $regex: req.body.search1, $options: "i" } })
-        if (products.length == 0) {
-            products = await Product.find({ title: { $regex: req.body.search1, $options: "i" } })
-        }
-        res.status(200).json({ success: true, products })
-    }
     else {
         let products = await Product.find()
         res.status(200).json({ success: true, products })

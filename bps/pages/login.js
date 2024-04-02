@@ -7,7 +7,6 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 
 
-
 const Login = () => {
 
   const router = useRouter()
@@ -19,12 +18,25 @@ const Login = () => {
   const passwordreq2 = useRef(0)
   const inp1 = useRef(0)
   const inp2 = useRef(0)
+  const [passIcon2, setPassIcon2] = useState('/visible.png')
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
       router.push('/')
     }
   }, [])
+
+  // password show function 
+  const showPass2 = () => {
+    if (passIcon2 == '/hide.png') {
+      setPassIcon2('/visible.png')
+      inp2.current.type = 'password'
+    }
+    else {
+      setPassIcon2('/hide.png')
+      inp2.current.type = 'text'
+    }
+  }
 
 
   // onchange function 
@@ -104,19 +116,19 @@ const Login = () => {
       }
       else {
         if (response.error === "Invalid credentials") {
-          passwordreq2.current.style.display = "block"
+          passwordreq2.current.style.display = "flex"
         }
         if (response.error === "User not found") {
-          emailreq2.current.style.display = "block"
+          emailreq2.current.style.display = "flex"
         }
       }
     }
     else {
       if (inp1.current.value === "") {
-        emailreq.current.style.display = "block"
+        emailreq.current.style.display = "flex"
       }
       if (inp2.current.value === "") {
-        passwordreq.current.style.display = "block"
+        passwordreq.current.style.display = "flex"
       }
     }
 
@@ -145,6 +157,9 @@ const Login = () => {
               <div className={styles.divInp}>
                 <label htmlFor="password" ></label>
                 <input value={password} ref={inp2} onChange={handleChange} type="password" className={styles.inp} id='password' name='password' placeholder='Password' />
+                {/* show password  */}
+                <div className={styles.showPass2}><Image src={passIcon2} onClick={showPass2} height={20} width={20} /></div>
+
                 {/* error messages  */}
                 <span ref={passwordreq} className={styles.errorMsg}><Image src={'/alert.png'} width={15} height={15} />Password is required!</span>
                 <span ref={passwordreq2} className={styles.errorMsg}><Image src={'/alert.png'} width={15} height={15} />Invalid password!</span>
@@ -161,7 +176,7 @@ const Login = () => {
               </div>
             </form>
           </div>
-          <div className={styles.signUpLink}>New here? <Link href={'/signup'}>Sign Up instead</Link></div>
+          <div className={styles.signUpLink}>New here? <Link href={'/signup'}>Sign Up</Link> instead</div>
         </div>
 
         <div className={styles.rightPart}>

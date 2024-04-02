@@ -1,6 +1,6 @@
-@media (min-width: 1100px) {
+@media (min-width: 1001px) {
   .forgotContainer {
-    min-height: 60vh;
+    min-height: 70vh;
     padding: 60px;
     margin-bottom: 15px;
   }
@@ -128,15 +128,12 @@
   }
 }
 
-
-
-
-/*******                      *******
-            for mobile  
-******                       ********/
-@media (min-width: 250px) and (max-width: 450px) {
+/*******                *******
+          for tablet
+*******                 ******/
+@media (min-width: 426px) and (max-width: 1000px) {
   .forgotContainer {
-    min-height: 75vh;
+    height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -155,7 +152,168 @@
   }
 
   .forgotHeading h1 {
-    font-size: 36px;
+    font-size: 33px;
+    color: #fff;
+  }
+
+  .forgotHeading div {
+    font-size: 18px;
+  }
+
+  .forgotHeading div a {
+    /* color: #2e7d32; */
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  /* forgot password display */
+  .forgotPassword {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--second-font);
+  }
+
+  /* input  */
+  .userInput {
+    outline: none;
+    width: 70vw;
+    max-width: 380px;
+    height: 2.9rem;
+    margin: 10px 0px;
+    border: 0px solid black;
+    border-radius: 10px;
+    background-color: #eef5f3;
+    padding: 0px 15px;
+    font-size: 21px;
+    font-family: var(--second-font);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+  }
+
+  .userInput:focus {
+    border: 1px solid #8bc34a;
+    background-color: #fff;
+  }
+
+  /* button  */
+  .button {
+    padding: 0.9em 2em;
+    border: none;
+    width: 70vw;
+    max-width: 380px;
+    margin: 25px 0px;
+    border-radius: 10px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #2c9caf;
+    font-family: var(--second-font);
+    font-size: 17px;
+    position: relative;
+    overflow: hidden;
+    outline: 2px solid #2c9caf;
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
+      rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+    background-color: #fff;
+  }
+
+  .button:hover {
+    cursor: pointer;
+  }
+
+  .button:active {
+    scale: 0.99;
+  }
+
+  .button:disabled {
+    background-color: #c8e6c9;
+    cursor: not-allowed;
+  }
+
+  /* when token is not  */
+  .showPass2 {
+    position: absolute;
+    margin: 20px -35px;
+  }
+
+  .showPass2:hover {
+    cursor: pointer;
+  }
+
+  .showPass2 img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .mismatchPass {
+    color: red;
+    font-size: 17px;
+    visibility: hidden;
+  }
+
+  /* button  */
+  .button2 {
+    padding: 0.9em 2em;
+    border: none;
+    width: 70vw;
+    max-width: 380px;
+    margin: 25px 0px;
+    border-radius: 10px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #2c9caf;
+    font-family: var(--second-font);
+    font-size: 17px;
+    position: relative;
+    overflow: hidden;
+    outline: 2px solid #2c9caf;
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
+      rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+    background-color: #fff;
+  }
+
+  .button2:hover {
+    cursor: pointer;
+  }
+
+  .button2:active {
+    scale: 0.99;
+  }
+
+  .button2:disabled {
+    background-color: #c8e6c9;
+    cursor: not-allowed;
+  }
+}
+
+/*******          *******
+        for mobile  
+******           ********/
+@media (min-width: 250px) and (max-width: 425px) {
+  .forgotContainer {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(253deg, #3ba5b4 0, #38ba8a 100%);
+  }
+
+  /* heading  */
+  .forgotHeading {
+    height: 140px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--font-heading);
+  }
+
+  .forgotHeading h1 {
+    font-size: 28px;
     color: #fff;
   }
 
@@ -182,14 +340,14 @@
   /* input  */
   .userInput {
     outline: none;
-    width: 80vw;
+    width: 75vw;
     height: 2.8rem;
     margin: 10px 0px;
     border: 0px solid black;
     border-radius: 10px;
     background-color: #eef5f3;
     padding: 0px 15px;
-    font-size: 18px;
+    font-size: 21px;
     font-family: var(--second-font);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
   }
@@ -203,7 +361,7 @@
   .button {
     padding: 0.8em 2em;
     border: none;
-    width: 80vw;
+    width: 75vw;
     margin: 25px 0px;
     border-radius: 10px;
     font-weight: bold;
@@ -211,11 +369,12 @@
     text-transform: uppercase;
     color: #2c9caf;
     font-family: var(--second-font);
-    font-size: 16px;
+    font-size: 17px;
     position: relative;
     overflow: hidden;
     outline: 2px solid #2c9caf;
-    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
+      rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
     background-color: #fff;
   }
 
@@ -228,7 +387,7 @@
   }
 
   .button:disabled {
-    background-color: #C8E6C9;
+    background-color: #c8e6c9;
     cursor: not-allowed;
   }
 
@@ -242,7 +401,7 @@
     cursor: pointer;
   }
 
-  .showPass2 img{
+  .showPass2 img {
     width: 25px;
     height: 25px;
   }
@@ -257,7 +416,7 @@
   .button2 {
     padding: 0.8em 2em;
     border: none;
-    width: 80vw;
+    width: 75vw;
     margin: 25px 0px;
     border-radius: 10px;
     font-weight: bold;
@@ -265,11 +424,12 @@
     text-transform: uppercase;
     color: #2c9caf;
     font-family: var(--second-font);
-    font-size: 16px;
+    font-size: 17px;
     position: relative;
     overflow: hidden;
     outline: 2px solid #2c9caf;
-    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
+      rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
     background-color: #fff;
   }
 
@@ -282,7 +442,7 @@
   }
 
   .button2:disabled {
-    background-color: #C8E6C9;
+    background-color: #c8e6c9;
     cursor: not-allowed;
   }
 }

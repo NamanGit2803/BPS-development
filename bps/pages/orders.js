@@ -72,7 +72,7 @@ const Orders = () => {
                 <div className={styles.orderId}>{orders[k].orderId}</div>
                 <div className={styles.orderAmount}>₹{orders[k].amount}</div>
                 <div className={styles.orderStatus}>{orders[k].status}</div>
-                <div className={styles.allDetails}>{orders[k].orderDate}</div>
+                <div className={styles.orderDate}>{orders[k].orderDate}</div>
               </div>
             </Link>
           })

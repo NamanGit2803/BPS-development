@@ -17,12 +17,13 @@ const Checkout = ({ cart, removeFromCart, subTotal, DeliveryCharge }) => {
   const [phone, setPhone] = useState('')
   const [address, setAddress] = useState('')
   const [disabled, setDisabled] = useState(true)
+  const [disabled2, setDisabled2] = useState(true)
   const [city, setcity] = useState('')
   const [changeName, setChangeName] = useState('Change Name')
   const [changePhone, setChangePhone] = useState('')
   const [changeAddress, setChangeAddress] = useState('')
   const [OTP, setOTP] = useState('')
-  const [payMode, setPayMode] = useState('online')
+  // const [payMode, setPayMode] = useState('')
 
   const userName = useRef(0)
   const userMobile = useRef()
@@ -37,12 +38,6 @@ const Checkout = ({ cart, removeFromCart, subTotal, DeliveryCharge }) => {
 
   const router = useRouter()
 
-
-  // date generate 
-  const month = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
-  const date = new Date();
-
-  const orderdate = date.getDate() + " " + month[date.getMonth()] + " " + date.getFullYear()
 
   // useEffect 
   useEffect(() => {
@@ -70,6 +65,7 @@ const Checkout = ({ cart, removeFromCart, subTotal, DeliveryCharge }) => {
         setChangeAddress('Add Address')
       }
 
+
       if (res.user.mobile) {
         setChangePhone('Change Number')
       }
@@ -78,11 +74,13 @@ const Checkout = ({ cart, removeFromCart, subTotal, DeliveryCharge }) => {
       }
 
 
-      if (res.user.mobile && res.user.address) {
+      if (res.user.address && res.user.mobile) {
         setDisabled(false)
+        setDisabled2(false)
       }
       else {
         setDisabled(true)
+        setDisabled2(true)
       }
     }
 
@@ -112,14 +110,56 @@ const Checkout = ({ cart, removeFromCart, subTotal, DeliveryCharge }) => {
     }
   }
 
+  // load razorpay 
+  const loadRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      // document.body.appendChild(script);
+
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  };
+
 
   // payment initiate function 
-  const initiatePayment = async () => {
+  const initiatePayment = async (e) => {
 
-    // order id generate 
-    let oid = Math.floor(Math.random() * Date.now())
+    e.preventDefault()
 
-    const data = { cart, subTotal, oid, email: email, name, address, phone, city, orderdate, payMode }
+    // date generate 
+    const month = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    const date = new Date();
+    const orderdate = date.getDate() + " " + month[date.getMonth()] + " " + date.getFullYear()
+
+    const res = await loadRazorpay();
+    if (!res) {
+      alert("Razorpay SDK Failed to load");
+      toast.error('Razorpay SDK Failed to load!', {
+        position: "top-left",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setTimeout(() => {
+        router.push(`${process.env.NEXT_PUBLIC_HOST}order?id=${txnRes.oid}`)
+      }, 2000);
+      return;
+    }
+
+
+    const data = { cart, subTotal, email: email, name, address, phone, city, orderdate, payMode: e.target.value }
     // get a transaction token 
     let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pretransaction`, {
       method: "POST", // or 'PUT'
@@ -128,10 +168,11 @@ const Checkout = ({ cart, removeFromCart, subTotal, DeliveryCharge }) => {
       },
       body: JSON.stringify(data)
     });
-
     let txnRes = await a.json()
+
+
     if (txnRes.success == 'COD order placed') {
-      toast.success('Your order has been placed seccessfully', {
+      toast.success('Your order has been placed successfully', {
         position: "top-left",
         autoClose: 2000,
         hideProgressBar: true,
@@ -145,51 +186,61 @@ const Checkout = ({ cart, removeFromCart, subTotal, DeliveryCharge }) => {
         router.push(`${process.env.NEXT_PUBLIC_HOST}order?id=${txnRes.oid}`)
       }, 2000);
     }
-    else if (txnRes.success) {
-      let txnToken = txnRes.txnToken
+    else if (txnRes.success == true) {
 
-      const config = {
-        "root": "",
-        "flow": "DEFAULT",
-        "data": {
-          "orderId": oid, /* update order id */
-          "token": txnToken, /* update token value */
-          "tokenType": "TXN_TOKEN",
-          "amount": subTotal /* update amount */
+      var options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
+        name: "Baba Provision Store",
+        currency: a.currency,
+        amount: a.amount,
+        order_id: a.id,
+        description: "Thankyou for pay",
+        image: "https://manuarora.in/logo.png",
+        handler: function (response) {
+          // Validate payment at server - using webhooks is a better idea.
+          alert(response.razorpay_payment_id);
+          alert(response.razorpay_order_id);
+          alert(response.razorpay_signature);
         },
-        "handler": {
-          "notifyMerchant": function (eventName, data) {
-            console.log("notifyMerchant handler function called");
-            console.log("eventName => ", eventName);
-            console.log("data => ", data);
-          }
-        }
-      };
+        prefill: {
+          name: "Baba Provision Store",
+          email: "njain4282@gmail.com",
+          contact: "6350250055",
+        },
+      }
 
-      // initialze configuration using init method
-      window.Paytm.CheckoutJS.init(config).then(function onSuccess() {
-        // after successfully updating configuration, invoke JS Checkout
-        window.Paytm.CheckoutJS.invoke();
-      }).catch(function onError(error) {
-        console.log("error => ", error);
-      });
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
 
-      toast.success('Your order has been placed seccessfully', {
-        position: "top-left",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      setTimeout(() => {
-        router.push(`${process.env.NEXT_PUBLIC_HOST}order?id=${txnRes.oid}`)
-      }, 2000);
+      // toast.success('Your order has been placed seccessfully', {
+      //   position: "top-left",
+      //   autoClose: 2000,
+      //   hideProgressBar: true,
+      //   closeOnClick: true,
+      //   pauseOnHover: false,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "light",
+      // });
+      // setTimeout(() => {
+      //   router.push(`${process.env.NEXT_PUBLIC_HOST}order?id=${txnRes.oid}`)
+      // }, 2000);
     }
     else {
       console.log(txnRes.error)
+      toast.error('Your order has not been placed seccessfully! because you changed cart value.', {
+        position: "top-left",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      // setTimeout(() => {
+      //   window.location.reload()
+      // }, 2000);
     }
   }
 
@@ -419,13 +470,9 @@ const Checkout = ({ cart, removeFromCart, subTotal, DeliveryCharge }) => {
   const codPay = () => {
     if (cod.current.checked == true) {
       codButton.current.style.visibility = 'visible'
-      setDisabled(true)
-      setPayMode('cod')
     }
     else {
       codButton.current.style.visibility = 'hidden'
-      setDisabled(false)
-      setPayMode('online')
     }
   }
 
@@ -482,10 +529,8 @@ const Checkout = ({ cart, removeFromCart, subTotal, DeliveryCharge }) => {
             </div>
 
             {/*  pay-btn  */}
-            <button disabled={disabled} className={styles.payBtnContainer} onClick={initiatePayment}>
-              <div className={styles.totalPrice}>
-                ₹{DeliveryCharge + subTotal} <span>Pay</span>
-              </div>
+            <button disabled={disabled} value='online' className={styles.payBtnContainer} onClick={initiatePayment}>
+              ₹{DeliveryCharge + subTotal} Pay
             </button>
 
             {/* otp varification  */}
@@ -513,10 +558,9 @@ const Checkout = ({ cart, removeFromCart, subTotal, DeliveryCharge }) => {
               <input ref={cod} onClick={codPay} type="checkbox" name="cod" id="cod" />
             </div>
             {/* button  */}
-            <button ref={codButton} onClick={initiatePayment} className={styles.codBtn}>Checkout</button>
+            <button disabled={disabled2} value='cod' ref={codButton} onClick={initiatePayment} className={styles.codBtn}>Checkout</button>
           </div>
         </div>
-
 
         {/* product-detail  */}
         {/* summary  */}
@@ -533,7 +577,7 @@ const Checkout = ({ cart, removeFromCart, subTotal, DeliveryCharge }) => {
               {Object.keys(cart).map((k) => {
                 return <div className={styles.itemsContainer}>
                   <div className={styles.itemDetail}>
-                    <img src={cart[k].img} alt='' width={50} height={50} /><span>{cart[k].name}<div className={styles
+                    <img src={cart[k].img} alt='' width={50} height={50} /><span><div className={styles.productName}>{cart[k].name}</div><div className={styles
                       .itemWeight}>{cart[k].size}</div></span>
                   </div>
                   <div className={styles.itemQty}>{cart[k].qty}</div>

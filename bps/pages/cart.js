@@ -5,8 +5,6 @@ import Link from 'next/link'
 
 const Cart = ({ cart, addToCart, removeFromCart, subTotal, DeliveryCharge }) => {
 
-  // const DeliveryCharge = 10;
-  // const grandTotal = subTotal + DeliveryCharge;
 
 
   return (
@@ -22,7 +20,7 @@ const Cart = ({ cart, addToCart, removeFromCart, subTotal, DeliveryCharge }) => 
         </div>}
 
         {/* when cart is empty  */}
-        {Object.keys(cart).length == 0 && <div className={styles.emptyCart}><Image src={'/empty-cart.png'} width={100} height={100} alt='Empty-cart' />
+        {Object.keys(cart).length == 0 && <div className={styles.emptyCart}><Image src={'/empty-cart.png'} width={50} height={50} alt='Empty-cart' />
           <div className={styles.firstPara}>Your cart is Empty!</div>
           <div className={styles.secondPara}>Your favourite items are just a click away</div>
           <Link href={'/'}><button>Start Shopping</button></Link>
@@ -46,7 +44,7 @@ const Cart = ({ cart, addToCart, removeFromCart, subTotal, DeliveryCharge }) => 
               return <div className={styles.itemDesc}>
                 {/* item-img  */}
                 <div className={`${styles.itemImg} ${styles.itemDetail}`}>
-                  <img src={cart[k].img} alt='' height={70} width={70} />
+                  <img src={cart[k].img} alt='img' height={70} width={70} />
                 </div>
 
                 <div className={styles.itemDetail1}>
@@ -67,11 +65,11 @@ const Cart = ({ cart, addToCart, removeFromCart, subTotal, DeliveryCharge }) => 
                 {/* item-qty  */}
                 <div className={styles.itemDetail}>
                   <div className={styles.cartItemsQtybtn}>
-                    <div onClick={() => { removeFromCart(k, 1) }}><Image src={'/minus2.png'} width={20} height={20} alt='' /></div>
+                    <div onClick={() => { removeFromCart(k, 1) }}><Image src={'/minus2.png'} width={20} height={20} alt='img' /></div>
 
                     <span>{cart[k].qty}</span>
 
-                    <div onClick={() => { addToCart(k, 1, '2 Minute Maggi noodle noodle noodle', 15, 70) }}><Image src={'/plus2.png'} width={20} height={20} alt='' /></div>
+                    <div onClick={() => { addToCart(k, 1, cart[k].title, cart[k].price, cart[k].size, cart[k].img) }}><Image src={'/plus2.png'} width={20} height={20} alt='img' /></div>
                   </div></div>
 
                 {/* item-total  */}
@@ -113,7 +111,7 @@ const Cart = ({ cart, addToCart, removeFromCart, subTotal, DeliveryCharge }) => 
                 <span className={styles.totalPrice}>
                   ₹{DeliveryCharge + subTotal}<span>Total</span>
                 </span>
-                <span className={styles.checkout}>Checkout <Image src={'/right-white.png'} height={10} width={10} alt='' /></span>
+                <span className={styles.checkout}>Checkout <Image src={'/right-white.png'} height={10} width={10} alt='img' /></span>
               </button></Link>
             </div>
           </div>

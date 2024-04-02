@@ -1,4 +1,4 @@
-@media (min-width: 1100px) {
+@media (min-width: 1001px) {
   .ordersSection {
     min-height: 60vh;
     padding: 20px;
@@ -60,7 +60,7 @@
   .ordersHeading {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    background-color: #E8F5E9;
+    background-color: #c8e6c9;
     font-size: 16px;
     padding: 6px;
     font-weight: 600;
@@ -115,12 +115,129 @@
 }
 
 
+/******                 *******
+         for tablet
+******                 *****/
+@media (min-width: 426px) and (max-width: 1000px){
+  .ordersSection {
+    min-height: 55vh;
+    padding: 10px;
+  }
+
+  /* heading  */
+  .heading {
+    margin: 20px 0px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .heading h1 {
+    font-family: var(--font-heading);
+    font-size: 30px;
+  }
+
+  /* zero order  */
+  .orderNotContainer {
+    text-align: center;
+    font-size: 15px;
+    font-family: var(--second-font);
+    margin: 40% 0;
+  }
+
+  .orderNotContainer span {
+    color: #4caf50;
+  }
+
+  .button {
+    width: 240px;
+    height: 40px;
+    background-color: #43a047;
+    border: 0px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
+    margin: 20px 0px;
+    font-family: var(--third-font);
+    font-size: 17px;
+  }
+
+  .button:active{
+    scale: 0.98;
+  }
+
+  /* orders conatiner  */
+  .ordersContainer {
+    width: 100%;
+    margin: auto;
+    border: 1px solid #616161;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+
+  /* orders table heading  */
+  .ordersHeading {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr 0.8fr 1fr;;
+    background-color: #c8e6c9;
+    font-size: 16px;
+    padding: 4px;
+    font-weight: 600;
+    font-family: var(--third-font);
+    border-radius: 6px 6px 0px 0px;
+  }
+
+  .headingTitle {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+  }
+
+  /* orders info  */
+  .ordersInfo {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr 0.8fr 1fr;;
+    height: 50px;
+    align-items: center;
+    justify-items: center;
+    font-size: 17px;
+    border: 1px solid #e0e0e0;
+    margin: 3px 0px;
+    border-radius: 3px;
+    font-family: var(--second-font);
+    padding: 2px 1px;
+  }
+
+  .ordersTable {
+    padding: 1px 2px;
+    min-height: 45vh;
+    max-height: 75vh;
+    overflow: hidden scroll;
+  }
+
+  .ordersTable::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ordersInfo:hover {
+    cursor: pointer;
+    scale: 1.003;
+  }
+
+  .ordersInfo:active {
+    scale: 1;
+  }
+
+  .ordersTable a {
+    text-decoration: none;
+    color: black;
+  }
+}
 
 
 /********                  ********* 
              for mobile  
 *********                   ********/
-@media (min-width: 250px) and (max-width: 450px) {
+@media (min-width: 336px) and (max-width: 425px) {
   .ordersSection {
     min-height: 55vh;
     padding: 10px;
@@ -173,7 +290,7 @@
     margin: auto;
     border: 1px solid #616161;
     border-radius: 5px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
   }
 
   /* orders table heading  */
@@ -214,6 +331,139 @@
     min-height: 45vh;
     max-height: 75vh;
     overflow: hidden scroll;
+  }
+
+  .ordersTable::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ordersInfo:hover {
+    cursor: pointer;
+    scale: 1.003;
+  }
+
+  .ordersInfo:active {
+    scale: 1;
+  }
+
+  .ordersTable a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+
+/*****   for small mobile   *****/
+@media (min-width: 250px) and (max-width: 335px) {
+  .ordersSection {
+    min-height: 55vh;
+    padding: 6px;
+  }
+
+  /* heading  */
+  .heading {
+    margin: 20px 0px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .heading h1 {
+    font-family: var(--font-heading);
+    font-size: 25px;
+  }
+
+  /* zero order  */
+  .orderNotContainer {
+    text-align: center;
+    font-size: 12px;
+    font-family: var(--second-font);
+    margin: 30% 0;
+  }
+
+  .orderNotContainer span {
+    color: #4caf50;
+  }
+
+  .button {
+    width: 240px;
+    height: 35px;
+    background-color: #43a047;
+    border: 0px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
+    margin: 20px 0px;
+    font-family: var(--third-font);
+    font-size: 15px;
+  }
+
+  .button:active{
+    scale: 0.98;
+  }
+
+  /* orders conatiner  */
+  .ordersContainer {
+    width: 100%;
+    margin: auto;
+    border: 1px solid #616161;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+
+  /* orders table heading  */
+  .ordersHeading {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr 0.8fr 1fr;;
+    background-color: #c8e6c9;
+    font-size: 14px;
+    padding: 4px;
+    font-weight: 600;
+    font-family: var(--third-font);
+    border-radius: 6px 6px 0px 0px;
+  }
+
+  .headingTitle {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+  }
+
+  /* orders info  */
+  .ordersInfo {
+    display: grid;
+    grid-template-columns: 0.8fr 0.7fr 0.8fr 1fr;
+    height: 45px;
+    align-items: center;
+    justify-items: center;
+    font-size: 14px;
+    border: 1px solid #e0e0e0;
+    margin: 3px 0px;
+    border-radius: 3px;
+    font-family: var(--second-font);
+    padding: 2px 1px;
+  }
+
+  .ordersTable {
+    padding: 1px 2px;
+    min-height: 45vh;
+    max-height: 75vh;
+    overflow: hidden scroll;
+  }
+
+  /* orderId  */
+  .orderId{
+    white-space: nowrap; 
+    width: 60px; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+
+  /* date  */
+  .orderDate{
+    white-space: nowrap; 
+    width: 63px; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
   }
 
   .ordersTable::-webkit-scrollbar {

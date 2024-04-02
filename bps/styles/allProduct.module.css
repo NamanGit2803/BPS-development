@@ -5,14 +5,14 @@
   grid-template-columns: 1fr 5fr;
 }
 
-.div{
+.div {
   padding: 30px;
   background-color: #e8f5e9;
   height: 85vh;
   overflow-y: scroll;
 }
 
-.div::-webkit-scrollbar{
+.div::-webkit-scrollbar {
   display: none;
 }
 
@@ -121,7 +121,7 @@
 
 .tableTitles {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr 0.5fr 0.5fr;
+  grid-template-columns: 0.7fr 2fr 1.3fr 0.7fr 0.7fr;
   border-bottom: 1px solid #78909c;
   padding: 10px 0px;
 }
@@ -136,7 +136,7 @@
 /* data  */
 .tableData {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr 0.5fr 0.5fr;
+  grid-template-columns: 0.7fr 2fr 1.3fr 0.7fr 0.7fr;
   border-bottom: 1px solid #78909c;
   padding: 5px 0px;
   align-items: center;
@@ -152,6 +152,30 @@
   background-color: #d0edd1;
 }
 
+.orderAcceptBtn {
+  border: 0px;
+  width: 32%;
+  height: 28px;
+  border-radius: 5px;
+  background-color: #43a047;
+  color: #fff;
+  font-family: var(--third-font);
+  font-size: 14px;
+}
+
+.orderAcceptBtn:hover {
+  cursor: pointer;
+}
+
+.orderAcceptBtn:active {
+  background-color: #43a047ed;
+}
+
+.tableDataLink {
+  text-decoration: none;
+  color: #37474f;
+}
+
 .data img {
   overflow: hidden !important;
   border-radius: 8px;
@@ -160,6 +184,14 @@
   max-height: 50px;
 }
 
-.data {
+.dataName{
   font-size: 18px;
+  white-space: nowrap; 
+  width: 90%; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+.data {
+  font-size: 18px; 
 }
